@@ -1,4 +1,4 @@
-# Role 6 Objections
+# Objections
 
 Misinformation on Social Media - Social Platform / Trust and Safety
 
