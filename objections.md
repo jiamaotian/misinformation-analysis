@@ -1,6 +1,6 @@
 # Role 6 Objections
 
-**Selected Project Area:** Project Area 6 - Misinformation on Social Media - Social Platform / Trust and Safety
+Misinformation on Social Media - Social Platform / Trust and Safety
 
 ## Candidate Vision A - Improving Coverage
 
