@@ -1,7 +1,5 @@
 # Role 6 Objections
 
-**Owner:** Euan
-
 **Selected Project Area:** Project Area 6 - Misinformation on Social Media - Social Platform / Trust and Safety
 
 ## Candidate Vision A - Improving Coverage
