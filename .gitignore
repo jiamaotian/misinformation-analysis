@@ -217,3 +217,10 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 data/
+
+# Peyton's full real-data cleaning outputs (review sharing terms before publishing)
+outputs/peyton-real/
+# Local real Ratings outputs
+outputs/peyton-ratings/
+# Full-file inspection and prepared data
+outputs/peyton-inspection/
