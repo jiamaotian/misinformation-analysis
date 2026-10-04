@@ -3,7 +3,7 @@
 ## GitHub submission
 Branch: `YoojinHwnag`
 Branch URL: https://github.com/jiamaotian/misinformation-analysis/tree/YoojinHwnag
-Submitted commit ID: pending commit and push of these files.
+Submitted commit ID: fb02f33
 
 This folder is prepared for submission; the final commit ID must be added to both this README and the PDF after upload. Confirm instructor repository access.
 
