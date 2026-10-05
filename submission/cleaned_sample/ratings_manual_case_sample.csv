@@ -1,0 +1,2 @@
+noteId,raterParticipantId,createdAtMillis,createdAtMillis_utc,version,agree,disagree,helpful,notHelpful,helpfulnessLevel,ratedOnTweetId,ratingSourceBucketed,suggestion,suggestion_trimmed,suggestionId,_source_file,_source_member,_source_row
+1352796878438424576,6BC15A6669481F9CEF45602263C22A860662F750EF683F326BB9B3535B0B740D,1611860252442,2021-01-28 18:57:32.442000+00:00,1,True,False,True,False,,,DEFAULT,,,,ratings-00000.zip,ratings-00000.tsv,1

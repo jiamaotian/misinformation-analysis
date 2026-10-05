@@ -1,0 +1,2 @@
+participantId,enrollmentState,successfulRatingNeededToEarnIn,timestampOfLastStateChange,timestampOfLastStateChange_utc,timestampOfLastEarnOut,timestampOfLastEarnOut_utc,modelingPopulation,modelingGroup,numberOfTimesEarnedOut,never_earned_out_consistent,_source_file,_source_member,_source_row
+D386CF31E993419F5075F102259605E9C38A04DFE7CD2B135A0692D037C69825,earnedIn,31,1736527963,1970-01-21 02:22:07.963000+00:00,1712159915303,2024-04-03 15:58:35.303000+00:00,CORE,13,1,False,userEnrollment-00000.zip,userEnrollment-00000.tsv,1224917

@@ -1,0 +1,52 @@
+{
+  "cleaning_validation": {
+    "status": "passed",
+    "scope": "full dataset",
+    "source_hashes_unchanged": true,
+    "source_files": 17,
+    "all_input_rows_retained_in_cleaned_partitions": true,
+    "joins_preserve_analysis_row_counts": true,
+    "rating_aggregation_reconciles": true,
+    "no_analysis_cohort_or_cutoff_selected": true,
+    "utc_timezone": "UTC",
+    "record_level_outputs_git_ignored_or_outside_repo": true,
+    "code_sha256": {
+      "clean_communitynotes.py": "21aba6ad3a75e4b1742c9c04a5e78ac339eb044bb71a872a8148a57851a68543",
+      "validate_communitynotes.py": "4bef2dec8f94630cd58519aecee61bd5402d2b65b9bfe3f7915eca00e6303b5a"
+    },
+    "output_bytes": 12410060038,
+    "dependencies": {
+      "duckdb": "1.5.6",
+      "pyarrow": "25.0.1"
+    }
+  },
+  "manifest": {
+    "raw_dir": "/Users/bobo/dso576/project/raw/communitynotes/data",
+    "run_time": "2026-10-03T05:16:25.665994+00:00",
+    "limit_per_file": null,
+    "source_files": 17,
+    "raw_file_mtime_utc_range": [
+      "2026-10-02T22:57:14.561223+00:00",
+      "2026-10-02T23:03:44.514467+00:00"
+    ]
+  },
+  "key_metrics": {
+    "rating_totals_direct": {
+      "rating_count": 235530477,
+      "legacy_rating_count": 34394,
+      "version2_rating_count": 235496083,
+      "valid_level_count": 235496083,
+      "helpful_count": 144595094,
+      "somewhat_helpful_count": 6092969,
+      "not_helpful_count": 84808020
+    },
+    "summary_note_groups": 3215297,
+    "rating_distinct_notes": 3215297,
+    "status_time_denominators": {
+      "all_status_rows": 3343818,
+      "nonmissing_first_non_nmr": 576161,
+      "currently_resolved": 419954,
+      "resolved_missing_first_time": 1357
+    }
+  }
+}

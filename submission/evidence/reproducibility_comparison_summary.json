@@ -1,0 +1,89 @@
+{
+  "old_run": "data/cleaning_run",
+  "new_run": "data/repro_cleaning_run",
+  "file_list": {
+    "old_count": 86,
+    "new_count": 86,
+    "missing_in_new": [],
+    "extra_in_new": []
+  },
+  "summary": {
+    "parquet_files": 35,
+    "parquet_schema_mismatches": [],
+    "parquet_row_mismatches": [],
+    "parquet_content_fingerprint_mismatches": [],
+    "parquet_ordered_fingerprint_mismatches": [
+      "audit/noteStatusHistory-join-flags.parquet",
+      "audit/notes-join-flags.parquet",
+      "audit/ratings-join-flags.parquet",
+      "summaries/ratings_by_note.parquet"
+    ],
+    "json_raw_differences": [
+      "manifest.json",
+      "reports/01_profile.json",
+      "reports/05_validation.json",
+      "reports/duplicates-batSignals.json",
+      "reports/duplicates-noteStatusHistory.json",
+      "reports/duplicates-notes.json",
+      "reports/duplicates-ratings.json",
+      "reports/duplicates-userEnrollment.json",
+      "reports/profile/noteStatusHistory-00000.json",
+      "reports/profile/notes-00000.json",
+      "reports/profile/notes-00002.json",
+      "reports/profile/notes-00003.json",
+      "reports/profile/notes-00004.json",
+      "reports/profile/ratings-00002.json",
+      "reports/profile/ratings-00005.json",
+      "reports/profile/ratings-00006.json",
+      "reports/profile/ratings-00007.json",
+      "reports/profile/ratings-00008.json",
+      "reports/profile/userEnrollment-00000.json",
+      "reports/rules.json",
+      "reports/transform/noteStatusHistory-00000.json",
+      "reports/transform/notes-00000.json",
+      "reports/transform/notes-00002.json",
+      "reports/transform/notes-00003.json",
+      "reports/transform/notes-00004.json",
+      "reports/transform/ratings-00000.json",
+      "reports/transform/ratings-00001.json",
+      "reports/transform/ratings-00002.json",
+      "reports/transform/ratings-00003.json",
+      "reports/transform/ratings-00004.json",
+      "reports/transform/ratings-00005.json",
+      "reports/transform/ratings-00006.json",
+      "reports/transform/ratings-00007.json",
+      "reports/transform/ratings-00008.json",
+      "reports/transform/userEnrollment-00000.json"
+    ],
+    "json_normalized_differences": [
+      "reports/transform/noteStatusHistory-00000.json",
+      "reports/transform/notes-00000.json",
+      "reports/transform/notes-00002.json",
+      "reports/transform/notes-00003.json",
+      "reports/transform/notes-00004.json",
+      "reports/transform/ratings-00000.json",
+      "reports/transform/ratings-00001.json",
+      "reports/transform/ratings-00002.json",
+      "reports/transform/ratings-00003.json",
+      "reports/transform/ratings-00004.json",
+      "reports/transform/ratings-00005.json",
+      "reports/transform/ratings-00006.json",
+      "reports/transform/ratings-00007.json",
+      "reports/transform/ratings-00008.json",
+      "reports/transform/userEnrollment-00000.json"
+    ],
+    "text_raw_differences": [
+      "catalog.sql"
+    ],
+    "text_normalized_differences": [],
+    "json_canonical_differences": []
+  },
+  "interpretation": {
+    "data_content_difference": "none detected by schema, row count, and order-insensitive Parquet content fingerprints",
+    "non_data_differences": [
+      "run_time/output_bytes/path metadata",
+      "row order in four SQL-derived Parquet outputs",
+      "list ordering in JSON value_mappings"
+    ]
+  }
+}

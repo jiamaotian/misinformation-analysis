@@ -1,0 +1,54 @@
+{
+  "total_rows": 5,
+  "row_limit": 50,
+  "selection_method": "One cleaned row for each of the five manually reviewed difficult cases listed in data/module6_validation/case_locations.json/manual_cases.md. Tables are split into separate CSV files; no random sample was added so the combined submission sample stays small and auditable.",
+  "shareability": "Community Notes source files are public download data. The sample is limited to five cleaned rows with provenance and excludes full raw ZIPs, full cleaned partitions, and full audit outputs. Participant identifiers in these public files are hashed IDs, but they are still retained only where necessary to document cleaning behavior.",
+  "source_run": "data/cleaning_run",
+  "cases": [
+    {
+      "dataset": "batSignals",
+      "sample_file": "submission/cleaned_sample/batSignals_manual_case_sample.csv",
+      "rows_in_file": 1,
+      "source_zip": "batSignals-00000.zip",
+      "source_member": "batSignals-00000.tsv",
+      "source_row": 14509,
+      "selection_reason": "Manual validation difficult case selected before viewing cleaned output; covers edge-case rules for Module 6 evidence."
+    },
+    {
+      "dataset": "notes",
+      "sample_file": "submission/cleaned_sample/notes_manual_case_sample.csv",
+      "rows_in_file": 1,
+      "source_zip": "notes-00002.zip",
+      "source_member": "notes-00002.tsv",
+      "source_row": 114,
+      "selection_reason": "Manual validation difficult case selected before viewing cleaned output; covers edge-case rules for Module 6 evidence."
+    },
+    {
+      "dataset": "ratings",
+      "sample_file": "submission/cleaned_sample/ratings_manual_case_sample.csv",
+      "rows_in_file": 1,
+      "source_zip": "ratings-00000.zip",
+      "source_member": "ratings-00000.tsv",
+      "source_row": 1,
+      "selection_reason": "Manual validation difficult case selected before viewing cleaned output; covers edge-case rules for Module 6 evidence."
+    },
+    {
+      "dataset": "noteStatusHistory",
+      "sample_file": "submission/cleaned_sample/noteStatusHistory_manual_case_sample.csv",
+      "rows_in_file": 1,
+      "source_zip": "noteStatusHistory-00000.zip",
+      "source_member": "noteStatusHistory-00000.tsv",
+      "source_row": 595,
+      "selection_reason": "Manual validation difficult case selected before viewing cleaned output; covers edge-case rules for Module 6 evidence."
+    },
+    {
+      "dataset": "userEnrollment",
+      "sample_file": "submission/cleaned_sample/userEnrollment_manual_case_sample.csv",
+      "rows_in_file": 1,
+      "source_zip": "userEnrollment-00000.zip",
+      "source_member": "userEnrollment-00000.tsv",
+      "source_row": 1224917,
+      "selection_reason": "Manual validation difficult case selected before viewing cleaned output; covers edge-case rules for Module 6 evidence."
+    }
+  ]
+}
