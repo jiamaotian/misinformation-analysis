@@ -26,7 +26,7 @@ Do not put a second copy of the request file there. The code discovers Notes rec
 
 The initial authoring test used four uploaded Notes files. The subsequent student-local run used all five Notes files and the request file. The supplied evidence describes that full local run: 3,125,451 raw Notes rows and 28,929 eligible posts. Raw TSVs are intentionally excluded from this update package; preserve your existing data/raw directory.
 
-Source identified in the project: https://communitynotes.x.com/guide/en/under-the-hood/download-data . Original export/retrieval date is unknown. Exact filenames, bytes and SHA-256 values are recorded in `evidence/source_manifest.json`. Preparation date 2026-10-04 is not a download date. To reproduce the exact historical results, the instructor needs these exact files from the student; newer downloads can yield different results. Redistribution terms were not verified; raw prose/participant data are excluded from the code package.
+Source identified in the project: https://communitynotes.x.com/guide/en/under-the-hood/download-data . The original files were downloaded on 2026-09-28. Exact filenames, bytes and SHA-256 values are recorded in `evidence/source_manifest.json`. Preparation date 2026-10-04 is not a download date. To reproduce the exact historical results, the instructor needs these exact files from the student; newer downloads can yield different results. Redistribution terms were not verified; raw prose/participant data are excluded from the code package.
 
 ## Definition and rules
 

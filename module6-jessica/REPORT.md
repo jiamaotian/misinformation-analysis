@@ -1,6 +1,6 @@
 # Community Notes Coverage: Individual Cleaning Report
 
-Jiamao Tian | DSO 576 Module 6 | Coverage scope only. This is individual evidence for the group reconciliation, not a claim that the team has reconciled its results.
+Jiamao Tian | DSO 576 Module 6 | Coverage scope only. Initial submission commit: 811b5887373768cfeef625da856b8bbe2e52af14. This is individual evidence for the group reconciliation, not a claim that the team has reconciled its results.
 
 # Result and scope
 
@@ -14,9 +14,9 @@ A Community Notes Product Manager must decide where additional note-writing or r
 
 Raw requests: one post and its feed eligibility fields, with tweetId expected unique. Raw Notes: one note, with noteId expected unique; multiple notes per tweetId are valid. Final coverage_cleaned.csv: exactly one eligible post per tweetId. All final analysis columns are included in the sample.
 
-# 3. Preserve the source - Unresolved
+# 3. Preserve the source - Done
 
-Original files are read only from data/raw. source_manifest.json records exact filenames, byte counts and SHA-256 hashes. Source supplied by the student: X Community Notes public data, https://communitynotes.x.com/guide/en/under-the-hood/download-data . Original download date/version was not supplied; preparation date is 2026-10-04, not a retrieval date. Reproduction requires the same source files, not a new live download. Obtain the original snapshot from the student for instructor review; current public downloads may differ.
+Original files are read only from data/raw. source_manifest.json records exact filenames, byte counts and SHA-256 hashes. Source supplied by the student: X Community Notes public data, https://communitynotes.x.com/guide/en/under-the-hood/download-data . The original files were downloaded on 2026-09-28. The preparation date is 2026-10-04. Reproduction requires the same source files, not a new live download; current public downloads may differ.
 
 # 4. Columns and types - Done
 
@@ -60,7 +60,7 @@ Run python reproduce.py from the project root. It launches cleaning.py in two fr
 
 # 14. Remaining limitations - Done
 
-All five expected Notes files were included in the local run. Even all five filenames do not prove complete, contemporaneous exports or include deleted notes. Unmatched records are observational, not verified coverage gaps. Recent requests have less follow-up. Main-feed eligibility is distinct from other feed eligibility, and -1 in the main feed is not overridden by an API feed. This assignment measures note writing only, not helpfulness, public display, misinformation truth, broad agreement, or response time. Source retrieval metadata and redistribution terms remain unverified. Group reconciliation and GitHub upload remain student/team actions.
+All five expected Notes files were included in the local run. Even all five filenames do not prove complete, contemporaneous exports or include deleted notes. Unmatched records are observational, not verified coverage gaps. Recent requests have less follow-up. Main-feed eligibility is distinct from other feed eligibility, and -1 in the main feed is not overridden by an API feed. This assignment measures note writing only, not helpfulness, public display, misinformation truth, broad agreement, or response time. Source retrieval date is documented, but redistribution terms and snapshot alignment remain unverified. Group reconciliation and GitHub upload remain student/team actions.
 
 # Cleaning decision log
 
@@ -131,5 +131,5 @@ Reason: The same fully identical note row occurs in notes-00001.tsv and notes-00
 
 Branch: jessica-module6-cleaning
 Branch URL: https://github.com/jiamaotian/misinformation-analysis/tree/jessica-module6-cleaning
-Code commit ID: PENDING - fill after successful commit and push
+Code commit ID: 811b5887373768cfeef625da856b8bbe2e52af14
 The commit identifies the submitted code/evidence version. This report may be regenerated in a subsequent documentation commit. A branch URL alone does not establish a successful push.
