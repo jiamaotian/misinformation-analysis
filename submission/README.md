@@ -5,8 +5,6 @@ Branch: `YoojinHwnag`
 Branch URL: https://github.com/jiamaotian/misinformation-analysis/tree/YoojinHwnag
 Submitted commit ID: fb02f33
 
-This folder is prepared for submission; the final commit ID must be added to both this README and the PDF after upload. Confirm instructor repository access.
-
 ## Source and scope
 X Community Notes Public Data: https://communitynotes.x.com/guide/en/under-the-hood/download-data
 Downloaded October 2, 2026.
