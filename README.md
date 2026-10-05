@@ -7,7 +7,7 @@ Misinformation on Social Media - Module 6 data cleaning submission.
 - Branch name: `clean-poying`
 - Remote: `https://github.com/jiamaotian/misinformation-analysis.git`
 - Branch URL: `https://github.com/jiamaotian/misinformation-analysis/tree/clean-poying`
-- Submission commit ID: TBD after the final submission commit is created.
+- Submission commit ID:  206d1671ca8ccd047492429c541bc37dce6f2919
 
 ## Data Source
 

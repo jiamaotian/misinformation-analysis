@@ -8,7 +8,7 @@ Branch URL: `https://github.com/jiamaotian/misinformation-analysis/tree/clean-po
 
 Remote: `https://github.com/jiamaotian/misinformation-analysis.git`
 
-Submission commit ID: TBD after final commit is created.
+Submission commit ID: 206d1671ca8ccd047492429c541bc37dce6f2919
 
 This draft is intended to be copied into the final Gradescope PDF after student review. It is not the final PDF and has not been committed or pushed.
 
@@ -320,7 +320,7 @@ Fields with raw blanks, sentinel-to-null handling, UTC companion missingness, or
 
 ## Remaining Limitations And Missing Information
 
-- Submission commit ID: TBD.
+- Submission commit ID: 206d1671ca8ccd047492429c541bc37dce6f2919
 - Exact upstream dataset version: TBD / not confirmed.
 - Actual download date: 2026-09-15, as reported by the student. Local raw file modification times are recorded separately and are not claimed as download dates.
 - Coverage and Response Time are both retained as confirmed project directions.
