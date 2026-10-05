@@ -1,4 +1,4 @@
-# Module 6 Homework Report Draft
+# Module 6 Homework Report
 
 Student name: PO-YING, HO
 
@@ -8,9 +8,9 @@ Branch URL: `https://github.com/jiamaotian/misinformation-analysis/tree/clean-po
 
 Remote: `https://github.com/jiamaotian/misinformation-analysis.git`
 
-Submission commit ID: 206d1671ca8ccd047492429c541bc37dce6f2919
+Submission commit ID: `d7d7f6a2cd8fc81c08d7438ae1c9fc530b390f00`
 
-This draft is intended to be copied into the final Gradescope PDF after student review. It is not the final PDF and has not been committed or pushed.
+This report documents the completed Module 6 cleaning, validation, reproducibility, and submission evidence.
 
 ## Work Attribution
 
@@ -18,7 +18,7 @@ The student reviewed and confirmed the expected outcomes for the five difficult 
 
 Codex performed the mechanical repo work: reading project files, querying cleaned Parquet/audit outputs, rerunning the full pipeline, comparing reproducibility outputs, creating the small `submission/` folder, and drafting this report. Statements such as "queried", "checked", or "reran" refer to Codex-executed checks unless explicitly described as student review.
 
-This report does not claim that the student personally ran DuckDB queries or the reproducibility run. The student should review this draft before final PDF submission.
+This report does not claim that the student personally ran DuckDB queries or the reproducibility run.
 
 ## Data Source, Version, And Date Notes
 
@@ -241,6 +241,22 @@ Conclusion: the Codex suggestion was checked against actual cleaned output and a
 
 ## Reproducibility Summary
 
+### Reproduction Commands
+
+Run from the repository root. Replace the raw-data path with the folder containing the same 17 ZIP files. Choose a new, Git-ignored output directory so existing verified outputs are not overwritten.
+
+```sh
+uv venv .venv --python 3.13
+uv pip install --python .venv/bin/python -r requirements-cleaning.txt
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python scripts/clean_communitynotes.py \
+  --raw-dir /path/to/communitynotes/data \
+  --output-dir data/repro_check_new \
+  --workers 1
+```
+
+The completed verification used Python 3.13.2, duckdb 1.5.6, pyarrow 25.0.1, and pytz 2026.4. The actual verified rerun used the local raw path listed above and output directory `data/repro_cleaning_run`; the command here uses a new directory to prevent overwriting it. Expected outputs include `manifest.json`, cleaned Parquet partitions, audit files, summaries, `catalog.sql`, and `reports/05_validation.json`. The completed rerun reported `status=passed`, and all 11 unit tests passed. The comparisons below are evidence from that completed run; these instructions have not triggered another run.
+
 Codex executed a fresh full run to `data/repro_cleaning_run` without overwriting `data/cleaning_run`.
 
 Results:
@@ -313,14 +329,14 @@ Fields with raw blanks, sentinel-to-null handling, UTC companion missingness, or
 | `noteStatusHistory` | `timestampMillisAbovePcrhThreshold` | 3,317,870 | 3,317,870 | 0 | PCRH absent vs signed values handled separately |
 | `noteStatusHistory` | `timestampMillisAbovePcrhThreshold_utc` | 3,317,870 source blanks plus unavailable/invalid PCRH values | 3,324,230 | 0 | UTC companion null when no recorded event or invalid/unavailable |
 | `userEnrollment` | `timestampOfLastStateChange` | 0 | 0 | 0 | Raw integer retained |
-| `userEnrollment` | `timestampOfLastStateChange_utc` | 0 source blanks | 1 | 0 | One invalid timestamp has null UTC companion; also flagged suspicious range |
+| `userEnrollment` | `timestampOfLastStateChange_utc` | 0 source blanks | 1 | 0 | One invalid value (row 687,733; raw 0) has NULL UTC. A different row (1,224,917) retains a 1970 UTC value and has a suspicious-range flag. |
 | `userEnrollment` | `timestampOfLastEarnOut` | 0 | 0 | 0 | Raw integer retained, including sentinel |
 | `userEnrollment` | `timestampOfLastEarnOut_utc` | 0 source blanks | 1,407,922 | 0 | UTC companion null for documented never-earned-out sentinel |
 | `userEnrollment` | `never_earned_out_consistent` | derived field | 547 | N/A | Null where earn-out sentinel and count disagree |
 
 ## Remaining Limitations And Missing Information
 
-- Submission commit ID: 206d1671ca8ccd047492429c541bc37dce6f2919
+- Submission commit ID: `d7d7f6a2cd8fc81c08d7438ae1c9fc530b390f00`
 - Exact upstream dataset version: TBD / not confirmed.
 - Actual download date: 2026-09-15, as reported by the student. Local raw file modification times are recorded separately and are not claimed as download dates.
 - Coverage and Response Time are both retained as confirmed project directions.
@@ -329,4 +345,3 @@ Fields with raw blanks, sentinel-to-null handling, UTC companion missingness, or
 - Some sentinel semantics remain unresolved, especially NMR stable-time `-1` meanings.
 - Suspicious timestamp unit issues are retained and flagged but not resolved.
 - Cross-table nonmatches are preserved and flagged; their real-world causes are not proven by the available snapshots.
-- This is still a draft report, not the final Gradescope PDF.
