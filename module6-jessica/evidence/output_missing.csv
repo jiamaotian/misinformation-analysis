@@ -1,0 +1,13 @@
+column,missing_after
+tweetId,0
+eligibility_ms,0
+observed_note_count,0
+pre_eligibility_note_count,0
+qualifying_note_count,0
+first_qualifying_note_ms,13741
+has_qualifying_note,0
+eligibility_utc,0
+followup_days_at_cutoff,0
+recent_under_7_days,0
+observation_status,0
+cutoff_utc,0

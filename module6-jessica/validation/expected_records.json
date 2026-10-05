@@ -1,0 +1,46 @@
+{
+  "purpose": "Fixed expectations for a follow-up validation, prepared after the initial cleaning and review. These are NOT evidence of expectations recorded before the original cleaning run.",
+  "cutoff_utc": "2026-09-12T23:59:59Z",
+  "cases": [
+    {
+      "tweetId": "1701209223000916034",
+      "case": "multiple qualifying notes",
+      "eligibility_ms": 1788045189412,
+      "qualifying_note_count": 5,
+      "first_qualifying_note_ms": 1788059909755,
+      "reason": "Five distinct note IDs have creation times at or after eligibility and before the cutoff. Retain all five notes, count this post once in the coverage numerator, and use the earliest qualifying creation time."
+    },
+    {
+      "tweetId": "1396932077422092289",
+      "case": "pre-eligibility note excluded",
+      "eligibility_ms": 1786581785791,
+      "qualifying_note_count": 0,
+      "first_qualifying_note_ms": null,
+      "reason": "The note was created at 1786546218442, before eligibility at 1786581785791. Keep the post in the denominator but exclude this note from qualifying coverage; the first qualifying time remains missing."
+    },
+    {
+      "tweetId": "1149982212609196032",
+      "case": "no note match",
+      "eligibility_ms": 1782755886709,
+      "qualifying_note_count": 0,
+      "first_qualifying_note_ms": null,
+      "reason": "No note for this post was found in the supplied Notes files. Retain the eligible post with zero qualifying notes and a missing first-note time; this is an observation about the files, not proof of no note on X."
+    },
+    {
+      "tweetId": "1414372054380339202",
+      "case": "recent eligibility retained",
+      "eligibility_ms": 1789245501655,
+      "qualifying_note_count": 0,
+      "first_qualifying_note_ms": null,
+      "reason": "The post became eligible shortly before the cutoff. Retain it with a recent-under-seven-days flag. No note was observed, so its qualifying count is zero and first-note time is missing."
+    },
+    {
+      "tweetId": "1253353708961902596",
+      "case": "qualifying note observed",
+      "eligibility_ms": 1785245256671,
+      "qualifying_note_count": 1,
+      "first_qualifying_note_ms": 1785252350875,
+      "reason": "The same fully identical note row occurs in notes-00001.tsv and notes-00002.tsv. Count the note once after exact-row deduplication. Its creation time follows eligibility and precedes the cutoff."
+    }
+  ]
+}

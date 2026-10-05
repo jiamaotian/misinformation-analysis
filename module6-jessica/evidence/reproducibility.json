@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "fresh_process_runs": 2,
+  "output_hashes_match": {
+    "column_audit.csv": true,
+    "coverage_cleaned.csv": true,
+    "coverage_sample.csv": true,
+    "five_record_checks.json": true,
+    "full_data_checks.json": true,
+    "output_missing.csv": true,
+    "proposed_rules.json": true,
+    "source_manifest.json": true
+  },
+  "python": "3.9.6",
+  "pandas": "2.2.3",
+  "reportlab": "4.4.9"
+}

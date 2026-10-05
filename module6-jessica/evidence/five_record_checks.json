@@ -1,0 +1,121 @@
+[
+  {
+    "case": "multiple qualifying notes",
+    "tweetId": "1701209223000916034",
+    "original_eligibility_ms": 1788045189412,
+    "original_notes": [
+      {
+        "file": "notes-00000.tsv",
+        "line": 659969,
+        "noteId": "2094516064558391710",
+        "createdAtMillis": "1788206518674",
+        "exact_duplicate": false
+      },
+      {
+        "file": "notes-00000.tsv",
+        "line": 2054309,
+        "noteId": "2094862136073945305",
+        "createdAtMillis": "1788289028558",
+        "exact_duplicate": false
+      },
+      {
+        "file": "notes-00000.tsv",
+        "line": 2308675,
+        "noteId": "2093901142178636199",
+        "createdAtMillis": "1788059909755",
+        "exact_duplicate": false
+      },
+      {
+        "file": "notes-00000.tsv",
+        "line": 2760061,
+        "noteId": "2094490763425927284",
+        "createdAtMillis": "1788200486414",
+        "exact_duplicate": false
+      },
+      {
+        "file": "notes-00000.tsv",
+        "line": 2809781,
+        "noteId": "2094469045630259357",
+        "createdAtMillis": "1788195308488",
+        "exact_duplicate": false
+      }
+    ],
+    "expected_qualifying_note_count": 5,
+    "actual_qualifying_note_count": 5,
+    "expected_first_note_ms": 1788059909755,
+    "actual_first_note_ms": 1788059909755,
+    "match": true,
+    "reason": "Count unique valid notes only when eligibility <= creation <= cutoff; preserve the eligible post even with zero observed notes."
+  },
+  {
+    "case": "pre-eligibility note excluded",
+    "tweetId": "1396932077422092289",
+    "original_eligibility_ms": 1786581785791,
+    "original_notes": [
+      {
+        "file": "notes-00000.tsv",
+        "line": 1880122,
+        "noteId": "2087552260653944944",
+        "createdAtMillis": "1786546218442",
+        "exact_duplicate": false
+      }
+    ],
+    "expected_qualifying_note_count": 0,
+    "actual_qualifying_note_count": 0,
+    "expected_first_note_ms": null,
+    "actual_first_note_ms": null,
+    "match": true,
+    "reason": "Count unique valid notes only when eligibility <= creation <= cutoff; preserve the eligible post even with zero observed notes."
+  },
+  {
+    "case": "no note match",
+    "tweetId": "1149982212609196032",
+    "original_eligibility_ms": 1782755886709,
+    "original_notes": [],
+    "expected_qualifying_note_count": 0,
+    "actual_qualifying_note_count": 0,
+    "expected_first_note_ms": null,
+    "actual_first_note_ms": null,
+    "match": true,
+    "reason": "Count unique valid notes only when eligibility <= creation <= cutoff; preserve the eligible post even with zero observed notes."
+  },
+  {
+    "case": "recent eligibility retained",
+    "tweetId": "1414372054380339202",
+    "original_eligibility_ms": 1789245501655,
+    "original_notes": [],
+    "expected_qualifying_note_count": 0,
+    "actual_qualifying_note_count": 0,
+    "expected_first_note_ms": null,
+    "actual_first_note_ms": null,
+    "match": true,
+    "reason": "Count unique valid notes only when eligibility <= creation <= cutoff; preserve the eligible post even with zero observed notes."
+  },
+  {
+    "case": "qualifying note observed",
+    "tweetId": "1253353708961902596",
+    "original_eligibility_ms": 1785245256671,
+    "original_notes": [
+      {
+        "file": "notes-00001.tsv",
+        "line": 7,
+        "noteId": "2082124719525130520",
+        "createdAtMillis": "1785252350875",
+        "exact_duplicate": false
+      },
+      {
+        "file": "notes-00002.tsv",
+        "line": 4,
+        "noteId": "2082124719525130520",
+        "createdAtMillis": "1785252350875",
+        "exact_duplicate": true
+      }
+    ],
+    "expected_qualifying_note_count": 1,
+    "actual_qualifying_note_count": 1,
+    "expected_first_note_ms": 1785252350875,
+    "actual_first_note_ms": 1785252350875,
+    "match": true,
+    "reason": "Count unique valid notes only when eligibility <= creation <= cutoff; preserve the eligible post even with zero observed notes."
+  }
+]
