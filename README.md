@@ -147,8 +147,7 @@ committed as assignment evidence.
 - Branch name: `Julia-Chen`
 - Branch URL: https://github.com/jiamaotian/misinformation-analysis/tree/Julia-Chen
 - Current pre-submission HEAD: `6c1e55be04028209f1c22aed1e91fe39c1cb7584`
-- Final assignment commit ID: **pending — the assignment materials are not yet
-  committed**
+- Final assignment commit ID: `8310948`
 
 After committing the final materials, run `git rev-parse HEAD` and replace the
 pending line with that exact commit ID. Do not label the current pre-submission
