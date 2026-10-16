@@ -1,9 +1,0 @@
-{
-  "fresh_script_completed": true,
-  "notebook_cleaning_cells_completed": true,
-  "full_notebook_run_completed": false,
-  "all_output_hashes_compared": false,
-  "status": "Unresolved",
-  "reason": "Extended notebook verification stopped at user request during redundant duplicate audit. Two full preparation runs completed with matching reported row counts and source hash.",
-  "source_sha256": "3f7e3a42a5bcc2282bd8c079865f98610fec14b553cc92db134a4b85d3c0ab10"
-}
