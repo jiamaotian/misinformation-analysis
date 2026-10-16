@@ -1,0 +1,7 @@
+source_row,field,expected,reason,original,actual,matches
+1,noteId,0001,Leading zeros are part of the ID.,0001,0001,True
+1,currentStatus,CURRENTLY_RATED_HELPFUL,Trim whitespace and standardize case., currently_rated_helpful ,CURRENTLY_RATED_HELPFUL,True
+3,eligible,False,Later exact copy of source row 2 must not count twice.,"{'noteId': '0002', 'createdAtMillis': '1704153600000', 'currentStatus': 'NEEDS_MORE_RATINGS'}",False,True
+4,eligible,False,Same ID has conflicting statuses; neither is authoritative.,"{'noteId': '0003', 'createdAtMillis': '1704240000000', 'currentStatus': 'CURRENTLY_RATED_HELPFUL'}",False,True
+6,createdAtMillis_utc,,"Malformed timestamp becomes missing, not an invented date.",bad-date,,True
+7,createdAtMillis_utc,,Negative unset timestamp does not represent a creation date.,-1,,True

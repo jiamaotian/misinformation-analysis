@@ -1,0 +1,3 @@
+dataset,input_rows,output_rows,exact_duplicate_rows_removed,conflicting_key_rows,original_columns,added_columns
+notes,15430,15430,0,0,24,25
+requests,499888,499888,0,0,7,20

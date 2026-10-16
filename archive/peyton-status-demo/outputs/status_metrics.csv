@@ -1,0 +1,4 @@
+currentStatus,note_count,denominator,share
+CURRENTLY_RATED_HELPFUL,1,4,0.25
+CURRENTLY_RATED_NOT_HELPFUL,1,4,0.25
+NEEDS_MORE_RATINGS,2,4,0.5

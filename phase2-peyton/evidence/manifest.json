@@ -1,0 +1,31 @@
+{
+  "scope": "full agreed files",
+  "preview_rows": null,
+  "source_url": "https://communitynotes.x.com/guide/en/under-the-hood/download-data",
+  "snapshot_label": null,
+  "cutoff_utc": null,
+  "pandas_version": "3.0.6",
+  "inputs": {
+    "notes": {
+      "path": "/Users/peytontom/dso576/misinformation-analysis/phase2-peyton/data/raw/notes-00001.tsv",
+      "sha256": "824e219e582ed97e6ed6e9331ecdd75b9521cf4092be1a3e105505e9a280e452"
+    },
+    "requests": {
+      "path": "/Users/peytontom/dso576/misinformation-analysis/phase2-peyton/data/raw/batSignals-00000.tsv",
+      "sha256": "18262d5f4092b55e717f47f8121d4f8c1fac69e56154f11fbfca0177d40b6e97"
+    }
+  },
+  "policy": "Remove exact duplicate source rows; retain and flag all other concerns; preserve original fields.",
+  "limitations": [
+    "Agreed files do not establish platform-wide coverage.",
+    "Missing eligibility dates and nonpositive values are flagged, not assigned undocumented meanings.",
+    "No eligibility ordering or request-to-note causal/timing assumptions are applied.",
+    "Future-date validation is unavailable without an explicit snapshot cutoff.",
+    "Snapshot date/version unknown."
+  ],
+  "checks": {
+    "row_counts_reconciled": true,
+    "source_hashes_unchanged": true,
+    "saved_original_fields_verified": true
+  }
+}
