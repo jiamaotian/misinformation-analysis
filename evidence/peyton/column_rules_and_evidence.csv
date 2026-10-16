@@ -1,0 +1,36 @@
+column,proposed_rule,verification,empty,whitespace_only,outer_whitespace,examples,rows_inspected
+noteId,Keep original text; flag blank/format/sentinel concerns,Original ID strings unchanged,0,0,0,"[""2021294138574962942"", ""2021458242719854978"", ""2021458413239271578""]",26896815
+raterParticipantId,Keep original text; flag blank/format/sentinel concerns,Original ID strings unchanged,0,0,0,"[""C4F546539DE2DAD1DE53FAAE782A1A2AE4D584E486738F1D3C58D85FF0338953"", ""1F389E4D82F9365D68F08DE88B2183B62495C0A02A5647F72F5051C9BDFF7BEF"", ""9DBF0CB45CE2DF281018C109FA5A2EF5B567978B31FD7BD00891EC64DF51B943""]",26896815
+createdAtMillis,Preserve milliseconds; optionally add UTC date,"Integer syntax, parse failures, nonpositive values, cutoff if supplied",0,0,0,"[""1770753267906"", ""1770749606640"", ""1770751069049""]",26896815
+version,Preserve; review observed values before proposing changes,"Missing, whitespace, and observed examples",0,0,0,"[""2""]",26896815
+agree,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0""]",26896815
+disagree,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0""]",26896815
+helpful,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0""]",26896815
+notHelpful,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0""]",26896815
+helpfulnessLevel,Preserve exact categories; flag unexpected labels,Full-file category counts reconcile,0,0,0,"[""HELPFUL"", ""NOT_HELPFUL"", ""SOMEWHAT_HELPFUL""]",26896815
+helpfulOther,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+helpfulInformative,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0""]",26896815
+helpfulClear,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+helpfulEmpathetic,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0""]",26896815
+helpfulGoodSources,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+helpfulUniqueContext,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0""]",26896815
+helpfulAddressesClaim,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+helpfulImportantContext,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""1"", ""0""]",26896815
+helpfulUnbiasedLanguage,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+notHelpfulOther,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+notHelpfulIncorrect,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+notHelpfulSourcesMissingOrUnreliable,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+notHelpfulOpinionSpeculationOrBias,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0""]",26896815
+notHelpfulMissingKeyPoints,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+notHelpfulOutdated,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0""]",26896815
+notHelpfulHardToUnderstand,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+notHelpfulArgumentativeOrBiased,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+notHelpfulOffTopic,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0""]",26896815
+notHelpfulSpamHarassmentOrAbuse,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+notHelpfulIrrelevantSources,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+notHelpfulOpinionSpeculation,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+notHelpfulNoteNotNeeded,Preserve; flag values other than 0 or 1,Missing count and unexpected binary count,0,0,0,"[""0"", ""1""]",26896815
+ratedOnTweetId,Keep original text; flag blank/format/sentinel concerns,Original ID strings unchanged,0,0,0,"[""2021236742460756143"", ""2021403500719251865"", ""2020876216090391022""]",26896815
+ratingSourceBucketed,Preserve; review observed values before proposing changes,"Missing, whitespace, and observed examples",0,0,0,"[""DEFAULT"", ""POPULATION_SAMPLED""]",26896815
+suggestion,Preserve text and blanks; do not infer missing means bad rating,Empty/whitespace counts and nonempty examples,26880490,9,4788,"[""He\u2019s racist "", ""The video dates back to December 13, 2025, and shows an episode of domestic violence that occurred in Turkey.    The woman was attacked with a gun by her ex-husband, who was already subject to a restraining order issued by the court.    This is an episode of violence; the ethnicity or the women\u2019s skin color is not relevant to the matter at hand, nor can it be considered an opinion about the specific incident.    https://x.com/6Sedici/status/2021284348540883377    https://6sedici.wordpress.com/2026/02/10/when-domestic-violence-is-recast-as-a-racial-warning    https://kocaelicinar.com/2025/12/21/kagithanede-uzaklastirma-kararina-ragmen-siddet    https://www.youtube.com/watch?v=V1XMyPAWejw    https://www.dha.com.tr/gundem/kagithanede-esini-silah-cekip-darbeden-bilal-burun-estetigi-yaptirip-benden-bosanmak-istedi-2781652 "", ""Was the ID requirement new, or something federal agents weren\u2019t abiding by prior to the court ruling? If so, note that the part of the law requiring ID wasn\u2019t contended instead of saying that it\u2019s technically true. ""]",26896815
+suggestionId,Keep original text; flag blank/format/sentinel concerns,Original ID strings unchanged,0,0,0,"[""-1"", ""2059837571677471207""]",26896815

@@ -1,0 +1,4 @@
+step,rows_before,rows_after,original_values_changed,details
+Load all source fields as text,26896815,26896815,0,No row selection or ID conversion
+Add rating_date_utc,26896815,26896815,0,Milliseconds represented as UTC in NEW column; 0 missing derived dates
+Add invalid_rating_date flag,26896815,26896815,0,Flags retained; no exclusions or category changes

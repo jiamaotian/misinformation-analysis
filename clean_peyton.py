@@ -16,7 +16,7 @@ source = Path.home() / "Downloads" / "ratings-00007.tsv"
 output = Path("outputs/peyton-inspection")
 output.mkdir(parents=True, exist_ok=True)
 CHUNK_SIZE = 100_000
-PREPARE_DATA = False  # Review the inspection and rules before changing to True.
+PREPARE_DATA = True  # Reviewed: preserve every source value and row; add date and flag only.
 # Only supply a verified snapshot cutoff. Do not guess it from the latest event.
 SNAPSHOT_CUTOFF = None  # Example format: "2026-09-19T00:00:00Z"
 cutoff = pd.to_datetime(SNAPSHOT_CUTOFF, utc=True) if SNAPSHOT_CUTOFF else None
