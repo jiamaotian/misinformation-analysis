@@ -1,0 +1,10 @@
+{
+  "kind": "illustrative design fixture, NOT measured Community Notes results",
+  "cutoff": "2026-09-30T23:59:59Z",
+  "date_label": "Aug 2026",
+  "window_days": 7,
+  "feed": "Standard (proposal)",
+  "coverage": {"eligible":1000,"covered":640,"no_observed_note":360,"immature_excluded":80,"invalid_time_excluded":5,"weeks":[{"label":"W1","eligible":250,"covered":150,"no_note":100},{"label":"W2","eligible":250,"covered":160,"no_note":90},{"label":"W3","eligible":250,"covered":170,"no_note":80},{"label":"W4","eligible":250,"covered":160,"no_note":90}]},
+  "response": {"eligible":800,"completed":480,"no_recorded_transition":320,"completed_median_hours":18.4,"immature_excluded":40,"timing_status_excluded":10,"classifications":[{"label":"Potentially misleading","completed":300,"waiting":200},{"label":"Not misleading","completed":180,"waiting":120}]},
+  "helpfulness":{"valid":10000,"helpful":7000,"somewhat_helpful":1000,"not_helpful":2000,"legacy_missing_excluded":120}
+}
