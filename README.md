@@ -27,7 +27,6 @@ Start with `peyton-tom.ipynb`. It follows the class style: load in chunks, inspe
 | `clean_peyton.py` | Runnable version of the notebook's cleaning code |
 | `requirements-peyton.txt` | Dependencies for both workflows |
 | `outputs/peyton-inspection/` | Current inspection and optional prepared tables; ignored by Git |
-| `archive/peyton-status-demo/` | Superseded synthetic example; not part of the active workflow |
 
 The homework requests both a cleaning `.py` and a notebook `.ipynb`. The class handout's `dashboard.py` is a separate app, to build after the plan and required note/status data are ready. It is not the cleaning script.
 
@@ -54,7 +53,7 @@ Current outputs in ignored `outputs/peyton-inspection/`:
 
 Preparation preserves all original columns, category labels, IDs, and rows. It adds `rating_date_utc` (a UTC representation of the original milliseconds) and `invalid_rating_date`; invalid values stay in the table. Each major step reports counts and original-value preservation. The inspection reports within-chunk flags; `verify_peyton.py duplicates` separately audits exact rows, note/rater pairs, note IDs, and rater IDs across the entire file. No rows are removed.
 
-The previous one-week outputs under `outputs/peyton-ratings/` remain historical results, not outputs of the revised workflow. The earlier synthetic example is archived separately.
+The previous one-week outputs under `outputs/peyton-ratings/` remain historical results, not outputs of the revised workflow.
 
 The response-time dashboard plan remains in the notebook: completed-time median, unresolved count, and median waiting time together. Full Note Status History data and a verified cutoff are still needed. Ratings alone cannot calculate these metrics.
 
@@ -64,7 +63,7 @@ See `CHECKLIST-peyton.md` for statuses and evidence. Five AI-assisted expectatio
 
 Use focused prompts that name a file, task, limit, and check. For example: “Review the date-conversion cell in `peyton-tom.ipynb`. Preserve `raw` and all selected-week rows. Check that daily grouped counts equal the cleaned row count.” Review the inspection output before changing a field that may already be correct.
 
-The team notebooks and project documents remain unchanged. The old synthetic status-history script and its sample outputs have been moved into `archive/peyton-status-demo/` to distinguish them from the current real Ratings workflow.
+The superseded synthetic status-history demo has been removed. The active workflow uses the real Ratings data.
 
 ### Verified data-quality findings
 
