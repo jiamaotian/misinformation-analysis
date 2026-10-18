@@ -1,0 +1,10 @@
+{
+  "status": "complete_supplied_files",
+  "reports": [
+    "ratings"
+  ],
+  "release_complete": false,
+  "is_full_dataset": false,
+  "all_supplied_rows_processed": true,
+  "max_rows_per_dataset": null
+}

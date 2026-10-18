@@ -1,0 +1,29 @@
+{
+  "scope": "All supplied records",
+  "datasets": {
+    "ratings": {
+      "checks": "PASS",
+      "engine": "independent sequential native verifier",
+      "input_rows": 27038662,
+      "rows": 27038662,
+      "exact_duplicates_removed": 0,
+      "source_fields_preserved": true,
+      "provenance_checked": true,
+      "removed_rows_verified_against_earlier_retained_source": true,
+      "timestamp_clean_utc_and_flags_recomputed": true,
+      "invalid_keys_retained": 0,
+      "qc_counts": {
+        "qc_noteId_invalid": 0,
+        "qc_raterParticipantId_invalid": 0,
+        "qc_key_valid": 27038662,
+        "qc_createdAtMillis_missing": 0,
+        "qc_createdAtMillis_invalid": 0,
+        "qc_createdAtMillis_utc_unrepresentable": 0,
+        "qc_createdAtMillis_after_cutoff": 0,
+        "qc_created_by_cutoff": 27038662,
+        "qc_valid_helpfulness": 27038662,
+        "qc_repeated_key": 0
+      }
+    }
+  }
+}
