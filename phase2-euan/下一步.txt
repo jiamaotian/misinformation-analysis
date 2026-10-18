@@ -1,0 +1,7 @@
+这是给组员审阅和整合的英文交接包，不包含两份大型输入数据。
+1. 保留你现有 VS Code 文件夹，不要覆盖 data。
+2. 把 COVERAGE_HANDOFF.md 复制到现有 euan_coverage 文件夹。
+3. 将 coverage_analysis.py、run_demo.py、requirements.txt 和真实结果文件交给团队整合；可上传到你自己的工作分支。
+4. 不要上传 .venv 或 __pycache__；不要把模拟输出当真实结果。
+5. 本次上传给助手的两份结果来自 all_history；latest28 是用相同输入重跑生成，并核对了周加总。
+6. 单份 Notes 分片、版本与 Peyton 不同、cutoff 时区解释尚需团队确认，必须保留在说明里。
