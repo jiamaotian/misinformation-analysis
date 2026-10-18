@@ -1,0 +1,19 @@
+{
+  "feed": "Standard",
+  "window_days": 7,
+  "cutoff_utc": "2026-10-16T04:02:00+00:00",
+  "start": null,
+  "end": null,
+  "eligible_requests": 25408,
+  "covered_requests": 542,
+  "no_observed_note": 24866,
+  "coverage_rate": 0.021331863979848868,
+  "no_observed_note_rate": 0.9786681360201511,
+  "median_time_to_first_note_hours": 0.5803390277777778,
+  "completed_request_count": 542,
+  "invalid_or_nonpositive_eligibility_all_requests": 472753,
+  "immature_requests_in_selected_dates": 3990,
+  "invalid_note_times_all_notes": 0,
+  "notes_after_cutoff_all_notes": 0,
+  "limitation": "Observed in supplied files only; unmatched requests do not establish platform-wide absence."
+}
