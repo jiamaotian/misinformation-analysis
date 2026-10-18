@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.build/
+.audit/
+*.sqlite
+*.tsv
+*.tsv.gz
+full_data/
+full_status_stage/
