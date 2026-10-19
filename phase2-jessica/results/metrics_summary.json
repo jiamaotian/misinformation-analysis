@@ -1,0 +1,17 @@
+{
+  "analysis": "Jessica - Response Time and Ratings",
+  "cutoff_utc": "2026-10-02T23:59:59.999000+00:00",
+  "notes_in_cohort": 20523,
+  "notes_with_matching_status": 15675,
+  "notes_with_first_non_nmr": 808,
+  "median_response_hours": 6.352078055555555,
+  "valid_matched_ratings": 6121,
+  "observed_helpful_share": 0.43179219081849374,
+  "ratings_rows_scanned": 27045028,
+  "duplicate_participant_note_pairs": 0,
+  "distinct_notes_with_observed_ratings": 478,
+  "original_notes_rows": 20523,
+  "status_rows_scanned": 3272318,
+  "data_scope": "Selected supplied Community Notes shards only; download snapshots may differ.",
+  "interpretation": "Unmatched records are not evidence of no rating or no status in the full platform dataset."
+}
