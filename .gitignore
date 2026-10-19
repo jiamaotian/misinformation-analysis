@@ -224,3 +224,15 @@ outputs/peyton-real/
 outputs/peyton-ratings/
 # Full-file inspection and prepared data
 outputs/peyton-inspection/
+
+# Jessica large cleaned data
+phase2-jessica/cleaned_data/
+
+# macOS system files
+.DS_Store
+
+# Local compiled cleaning tools
+yoojin_phase 2/.build/
+
+# Local large cleaned datasets
+phase2-jessica/cleaned_data/
