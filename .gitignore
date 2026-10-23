@@ -236,3 +236,11 @@ yoojin_phase 2/.build/
 
 # Local large cleaned datasets
 phase2-jessica/cleaned_data/
+
+# Keep Peyton Module 6 work local
+/CHECKLIST-peyton.md
+/DECISIONS-peyton.md
+/clean_peyton.py
+/peyton-tom.ipynb
+/reproduce_peyton.py
+/requirements-peyton.txt
