@@ -6,7 +6,7 @@
 - Additional evidence: a multi-window synthetic fixture with changing maturity denominators, checked against a separate integer-arithmetic implementation. 
 - Scope: existing backend analysis
 
-## PT-01 — Dashboard test outside current audit scope
+## PT-01 — Dashboard test
 
 - Status: superseded as a prerequisite for Peyton's audit; no UI failure claimed.
 - The original request to obtain a dashboard does not apply to this backend audit. 
