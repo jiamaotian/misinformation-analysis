@@ -49,3 +49,11 @@
 - Request: commit `check_date_gaps.py` and `audit_results.json` as reproducible regression evidence.
 - Acceptance: all nine checks pass, including exact selected-request and gap IDs.
 - Scope: backend synthetic cases only; existing PT-02 provenance limitations remain unresolved.
+
+## YH-01 — Helpfulness and observation-window checks
+
+- **Yoojin Hwang:** Audited supplied helpfulness backend using independent synthetic tests.
+- **Results:** Valid counts 7/1/2, 3 invalid levels excluded, Helpful share 70%. Duplicate and unmatched ratings did not inflate matched counts; duplicate Notes/Status IDs raised errors.
+- **Window check:** Existing baseline returned 6 notes/5 resolved; independent 7-day rules returned 5 mature notes/3 completed (60%). This is a gap against the proposed window policy, not a baseline arithmetic bug.
+- **Request:** Report exclusion counts and retain baseline labels until the proposed maturity/window rules are approved and implemented.
+- **Evidence:** Test code (https://github.com/jiamaotian/misinformation-analysis/blob/YoojinHwnag/check.py)
