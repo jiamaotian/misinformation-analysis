@@ -39,3 +39,13 @@
 - **Conclusion:** The backend selected the expected feed-specific eligibility fields and produced the correct eligible request counts for the tested cases.
 - **Limitation:** This check does not validate the interactive dashboard, full production data, or the provenance of the real-data cutoff and source scope.
 - **Requested change:** No backend code change requested based on these tests. Peyton's cutoff and source-provenance concern in PT-02 remains open.
+
+## EW-01 — Preserve date-filter and gap-count regression checks
+
+- **Euan (Yun Wei):** Coverage eligibility-date filter and `no_observed_note` count. Backend version: `93bc9a7`. Evidence: nine synthetic checks passed locally with pandas 2.3.3, including date boundaries, timezone equivalence, and gap membership. No UI or real-data validation claimed.
+
+- Status: proposed test improvement; no calculation defect found in the tested cases.
+- Evidence: the main fixture returned 5 eligible requests, 2 covered, and 3 gaps. All nine synthetic checks passed.
+- Request: commit `check_date_gaps.py` and `audit_results.json` as reproducible regression evidence.
+- Acceptance: all nine checks pass, including exact selected-request and gap IDs.
+- Scope: backend synthetic cases only; existing PT-02 provenance limitations remain unresolved.
