@@ -1,0 +1,144 @@
+{
+  "source_sha256": "58057aec9b06ac2ef5a1bb430d9251ad3c08ac2525e57bf31c19dcb15692d262",
+  "pandas_version": "2.3.3",
+  "scope": "Synthetic backend audit only; no UI or real-data provenance certification",
+  "checks": [
+    {
+      "case": "half-open range: start included, end excluded",
+      "selected_ids": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "8"
+      ],
+      "covered_ids": [
+        "2",
+        "4"
+      ],
+      "gap_ids": [
+        "3",
+        "5",
+        "8"
+      ],
+      "eligible": 5,
+      "covered": 2,
+      "gaps": 3,
+      "passed": true
+    },
+    {
+      "case": "equivalent timezone offsets",
+      "selected_ids": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "8"
+      ],
+      "covered_ids": [
+        "2",
+        "4"
+      ],
+      "gap_ids": [
+        "3",
+        "5",
+        "8"
+      ],
+      "eligible": 5,
+      "covered": 2,
+      "gaps": 3,
+      "passed": true
+    },
+    {
+      "case": "start only",
+      "selected_ids": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "covered_ids": [
+        "2",
+        "4",
+        "6"
+      ],
+      "gap_ids": [
+        "3",
+        "5",
+        "7",
+        "8"
+      ],
+      "eligible": 7,
+      "covered": 3,
+      "gaps": 4,
+      "passed": true
+    },
+    {
+      "case": "end only",
+      "selected_ids": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "8"
+      ],
+      "covered_ids": [
+        "1",
+        "2",
+        "4"
+      ],
+      "gap_ids": [
+        "3",
+        "5",
+        "8"
+      ],
+      "eligible": 6,
+      "covered": 3,
+      "gaps": 3,
+      "passed": true
+    },
+    {
+      "case": "empty date range cohort",
+      "selected_ids": [],
+      "covered_ids": [],
+      "gap_ids": [],
+      "eligible": 0,
+      "covered": 0,
+      "gaps": 0,
+      "passed": true
+    },
+    {
+      "case": "maturity boundary within selected dates",
+      "selected_ids": [
+        "2"
+      ],
+      "covered_ids": [
+        "2"
+      ],
+      "gap_ids": [],
+      "eligible": 1,
+      "covered": 1,
+      "gaps": 0,
+      "passed": true
+    },
+    {
+      "case": "equal bounds",
+      "passed": true,
+      "error": "start must be earlier than end."
+    },
+    {
+      "case": "reversed bounds",
+      "passed": true,
+      "error": "start must be earlier than end."
+    },
+    {
+      "case": "timezone omitted",
+      "passed": true,
+      "error": "Supply a timezone, e.g. 2026-10-01T00:00:00Z"
+    }
+  ]
+}
