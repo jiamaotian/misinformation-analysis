@@ -245,3 +245,11 @@ phase2-jessica/cleaned_data/
 /reproduce_peyton.py
 /requirements-peyton.txt
 /verify_peyton.py
+
+# Local source data stays private to the workspace; compact app tables are bundled.
+yoojin_phase 2/*_clean.tsv.gz
+outputs/dashboard/*
+!outputs/dashboard/notes.parquet
+!outputs/dashboard/ratings.parquet
+!outputs/dashboard/requests.parquet
+!outputs/dashboard/validation.json

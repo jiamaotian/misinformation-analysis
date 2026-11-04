@@ -1,6 +1,61 @@
 # misinformation-analysis
 Misinformation on Social Media
 
+## Run the dashboard
+
+The Streamlit app provides independent coverage and response sections with 7/14/28-day windows,
+feed/date/classification/note-type filters, weekly chart selection, resets, first-day rating activity,
+windowed helpfulness, exclusion counts, and aggregate CSV exports. The app opens directly to this dashboard.
+
+Intended users are Community Notes product managers investigating observed coverage gaps and
+waiting-note patterns. These observations cannot establish the effect of adding writers or raters.
+
+From this folder, using Python 3.11 or newer:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dashboard.txt
+python -m streamlit run main.py
+```
+
+The compact prepared tables are bundled, so running the app needs no raw downloads.
+To rebuild them, run `python prepare_dashboard.py`. Rebuilding requires `phase2-peyton/outputs/notes_clean.csv`,
+`phase2-peyton/outputs/note_requests_clean.csv`, and the two `*_clean.tsv.gz` files in
+`yoojin_phase 2/`, plus Yoojin's committed validation reports. These large source files are local and
+ignored by Git. Preparation scans the full cleaned inputs once and saves compact Parquet files
+under `outputs/dashboard/`; the app uses those cached tables rather than rescanning millions of ratings.
+Rerun preparation after replacing any source file. If preparation fails, do not treat prior outputs
+as an audit of the new inputs.
+
+Open http://localhost:8501. Stop the server with Ctrl+C. On this laptop preparation is complete;
+restart with `.venv/bin/python -m streamlit run main.py`.
+
+**Snapshot status:** on November 2, Peyton designated October 2, 2026 23:59:59.999 UTC as the
+shared provisional cutoff for all four datasets. `dashboard_policy.json` records this decision and
+is used during preparation. Original download dates and snapshot completeness remain unverified.
+Fixed-window metrics remain available in exploratory mode; exports mark the cutoff unverified.
+Historical manifests and saved Phase 2 results retain their original metadata. See `SNAPSHOT_STATUS.md`.
+
+**Validation:** `yoojin_phase 2/evidence/dashboard_validation.json` records a complete cleaned-output
+scan, QC-count reconciliation, status-key uniqueness, matched rating-pair uniqueness, file hashes,
+and join counts. It does not revalidate original raw data or establish complete platform coverage.
+The new preparation workflow does not overwrite the historical `SUCCESS.json` or Phase 2 aggregates.
+The legacy Jessica runner still requires its original combined-cleaning completion record;
+the dashboard uses the separate preparation workflow above.
+
+**Data scope:** 15,430 notes, 27,038,662 supplied ratings, and 3,343,818 status rows.
+4,792 notes have no matching status record; only 252 notes have observed ratings in the supplied shard.
+Missing status records are excluded from response metrics. No observed rating is not proof of zero
+platform activity. Scatter plots use a reproducible sample of at most 2,000 completed notes;
+KPI and aggregate calculations use the full selected eligible cohort.
+
+Tests: install `pytest`, then run `python -m pytest test_dashboard.py test_window_analysis.py`.
+
+Deployment: choose `main.py` as the entry point and use the root `requirements.txt`.
+The prepared `outputs/dashboard/` tables and validation report are included in this deployment package.
+Select the `main` branch, entry file `main.py`, and Python 3.12 in Streamlit Community Cloud. Live app link: not deployed. Demo video link: not recorded.
+
 ## Peyton Tom — Module 6
 
 | Information | Details |
@@ -93,3 +148,12 @@ The full raw/prepared files stay in ignored local folders. Small audit reports a
 ### Current verification status
 
 Both full-file preparation passes completed. The extended notebook verification was stopped during its repeat duplicate audit to limit runtime; a complete saved Run All and final all-output hash comparison are not claimed. See `CHECKLIST-peyton.md` for the final statuses. For just the five-record comparison, run `python verify_peyton.py records`; this avoids another full inspection or duplicate audit.
+
+### Supported date selections
+
+Date selectors offer only dates represented in the supported cohort. Coverage dates depend on the
+feed and maturity window, using the shared provisional October 2 cutoff. Response and ratings are
+restricted to February 4–10, 2026 note-creation dates, where the supplied ratings overlap matched
+status history. All eligible notes in the selected period stay in response denominators, including
+notes without observed ratings. This period restriction is deliberate and limits generalization.
+Classification/type filters can still yield no records; explanatory empty states remain in place.
