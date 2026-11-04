@@ -7,7 +7,7 @@ from pathlib import Path
 import hashlib
 import json
 from collections import Counter
-import pandas as pd
+import argparse
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / 'outputs/dashboard'
@@ -24,6 +24,7 @@ def digest(path):
 
 
 def prepare():
+    import pandas as pd
     OUT.mkdir(parents=True, exist_ok=True)
     report = {'scope': 'Full cleaned-output scan; original source files not revalidated. Selected shards only.',
               'cutoff_utc': '2026-10-02T23:59:59.999Z', 'cutoff_verified': False,
@@ -119,4 +120,25 @@ def prepare():
     print(json.dumps({k:v for k,v in report.items() if k!='datasets'},indent=2),flush=True)
 
 
-if __name__ == '__main__': prepare()
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    source = parser.add_mutually_exclusive_group()
+    source.add_argument('--raw-url', help='Direct shared ZIP download URL')
+    source.add_argument('--raw-zip', type=Path, help='Existing local raw ZIP')
+    source.add_argument('--raw-dir', type=Path, help='Index all ZIPs in an existing raw-data folder without copying them')
+    parser.add_argument('--sha256', help='Expected SHA-256 of the raw ZIP')
+    args = parser.parse_args()
+    if args.sha256 and not (args.raw_url or args.raw_zip):
+        parser.error('--sha256 requires --raw-url or --raw-zip')
+    if args.raw_dir:
+        from raw_dataset import index_raw_directory
+        index_raw_directory(args.raw_dir)
+    elif args.raw_url or args.raw_zip:
+        from raw_dataset import import_raw_zip
+        import_raw_zip(url=args.raw_url, local_zip=args.raw_zip, expected_sha256=args.sha256)
+    else:
+        prepare()
+
+
+if __name__ == '__main__':
+    main()
