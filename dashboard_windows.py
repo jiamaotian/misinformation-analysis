@@ -41,7 +41,12 @@ def reset(prefix):
 
 
 def filters(prefix, cutoff, available_dates):
-    window = st.selectbox('Observation window (days)', [7,14,28], key=prefix+'window')
+    window = st.selectbox('Observation window (days)', [7,14,28], key=prefix+'window',
+        help='How long each request or note is followed after its starting timestamp. Only records with this much observation time before the cutoff are eligible.')
+    if prefix.startswith('cov_'):
+        st.caption(f'Follow each request for {window} days after feed eligibility. Count it as covered if a new note appears within that period.')
+    else:
+        st.caption(f'Follow each note for {window} days after creation. Count first Helpful or Not Helpful transitions and rating helpfulness within that period. First-day rating counts always use 24 hours.')
     values = available_dates(window).dropna()
     days = sorted(set(values.dt.date))
     if not days:
@@ -70,7 +75,7 @@ def render():
         st.write('Coverage follows requests and the notes written afterward. Use it to identify periods worth investigating.')
     with right:
         st.markdown('**How quickly did notes reach a status?**')
-        st.write('Response and ratings follow February 4–10 notes. Compare recorded response times and rating opinions.')
+        st.write('Measure hours from note creation to its first Helpful or Not Helpful status, alongside notes without a recorded transition within the selected window. Compare first-day ratings and helpfulness for the same eligible notes.')
     st.caption('The sections use different historical periods. Their filters are independent; their totals should not be compared as one population.')
     paths = [OUT/n for n in ['notes.parquet','ratings.parquet','requests.parquet','validation.json']]
     if not all(p.exists() for p in paths):
@@ -84,20 +89,21 @@ def render():
         st.error(f'Could not load prepared data: {exc}')
         if st.button('Retry loading'): st.cache_data.clear(); st.rerun()
         return
+    from window_analysis import truth
+    single_type = bool(len(notes)) and truth(notes.isCollaborativeNote).all() and notes.isMediaNote.astype('string').isin(['0','False','false']).all()
+    if single_type:
+        st.info(f'Data scope: {len(notes):,} collaborative, non-media notes only. Coverage counts new notes in this supplied subset; other Community Notes may be missing.')
     cutoff = report['cutoff_utc']
-    st.warning(f'Unverified snapshot • Recorded provisional cutoff: {cutoff}. '
-               'This is the agreed provisional cutoff for all four datasets. Original download dates and snapshot completeness remain unverified; results are exploratory.')
-    with st.expander('Validation and snapshot evidence'):
+    st.caption(f'Exploratory results • Shared provisional cutoff: {cutoff} • All dates and times UTC')
+    with st.expander('Data scope and validation'):
+        st.write('The October 2 cutoff is agreed provisionally. Original download dates and snapshot completeness remain unverified, so results describe the supplied data only.')
         st.write(report['scope'])
-        st.write('The scan reconciles all imported status/rating row counts and QC totals to Yoojin’s reports, '
+        st.write('The initial cleaned-data scan reconciles status/rating row counts and QC totals to Yoojin’s reports. Additional raw ratings imports have separate counts and checks in the report. The initial scan '
                  'checks status ID uniqueness, and checks matched rating-pair uniqueness. '
                  'It does not revalidate the unavailable original raw files or prove snapshot completeness.')
         st.json(report)
-    if not st.checkbox('Explore fixed-window results using the provisional October 2 cutoff', key='explore_windows'):
-        st.info('Select exploratory mode above to view results using the shared provisional cutoff.')
-        return
-    st.caption('Exploratory mode • All times UTC • Filters affect only their own section • Refreshing source files requires rerunning preparation.')
-    st.header('Coverage')
+    st.caption('Each section has independent filters. Available dates update with the selected observation window.')
+    st.header('Observed coverage in supplied Notes data')
     st.write('Dates below refer to when requests became eligible for the selected feed, not when ratings were submitted.')
     st.button('Reset Coverage', on_click=reset, args=('cov_',))
     feed = st.selectbox('Request feed',list(FEEDS),key='cov_feed')
@@ -117,15 +123,11 @@ def render():
             context = f'{feed}_{window}_{start}_{end}'
             selected_week = st.selectbox('Focus week', ['All weeks']+table.week.tolist(),key='cov_focus_'+context)
             if len(table):
-                pick = alt.selection_point(name='week_pick',fields=['week'],on='click',clear='dblclick')
                 chart = alt.Chart(table).mark_bar().encode(x=alt.X('week:N',title='Eligibility week (UTC)'),
                     y=alt.Y('coverage_percent:Q',title='Coverage (%)'),
-                    opacity=alt.condition(pick,alt.value(1),alt.value(.4)),
-                    tooltip=['week','eligible_requests','covered_requests','no_observed_note',alt.Tooltip('coverage_percent:Q',format='.1f')]).add_params(pick)
-                event = st.altair_chart(chart,width='stretch',on_select='rerun',key='cov_chart_'+context)
-                points = event.selection.get('week_pick',[])
-                if points: selected_week = points[0]['week']
-                st.caption('Click a bar to focus the cards/table; double-click to clear the chart selection. Chart selection takes precedence over Focus week.')
+                    tooltip=['week','eligible_requests','covered_requests','no_observed_note',alt.Tooltip('coverage_percent:Q',format='.1f')])
+                st.altair_chart(chart,width='stretch')
+                st.caption('Use Focus week to filter the cards, table, and export. The chart keeps the full date-range overview.')
             scoped = table if selected_week=='All weeks' else table.loc[table.week.eq(selected_week)]
             eligible = int(scoped.eligible_requests.sum()); covered = int(scoped.covered_requests.sum())
             st.caption(f'Active week: {selected_week}')
@@ -149,12 +151,16 @@ def render():
                 st.info(f'Review candidate: week {low.week} has {low.covered_requests:,} covered requests out of {low.eligible_requests:,}. '
                         'Review source coverage before interpreting this as unmet need.')
     st.header('Response time & ratings')
-    st.info('February 4–10, 2026 • Dates refer to note creation. This is the period where our notes, status history, and observed ratings overlap. Coverage dates above remain independent.')
+    st.info('Dates refer to note creation. Available dates below reflect the current overlap of notes, status history, and supplied ratings. Coverage dates above remain independent.')
     st.button('Reset Response',on_click=reset,args=('resp_',))
     classes = sorted(notes.classification.fillna('').replace('','Unknown').unique())
     choice = st.multiselect('Classification',classes,default=classes,key='resp_classes')
-    note_type = st.selectbox('Note type',['All','Media','Non-media','Collaborative','Unknown'],key='resp_type')
-    st.caption('Collaborative and media categories can overlap. Unknown means a missing or unrecognized type flag.')
+    if single_type:
+        note_type = 'All'
+        st.caption('Note type: collaborative, non-media. All supplied notes share this type.')
+    else:
+        note_type = st.selectbox('Note type',['All','Media','Non-media','Collaborative','Unknown'],key='resp_type')
+        st.caption('Media and collaborative categories may overlap.')
     st.caption('Response and ratings are restricted to note-creation dates with observed matched ratings in the supplied files. All eligible notes within those dates remain in the denominator, including notes without ratings. This is a selected historical period, not the full dataset.')
     def rating_dates(w):
         full, _, _, _ = response(version,cutoff,w,'2000-01-01T00:00:00Z','2100-01-01T00:00:00Z',tuple(classes),'All')
@@ -173,7 +179,7 @@ def render():
             a.metric('Eligible notes',f'{len(cohort):,}')
             b.metric('Reached first non-NMR',f'{len(completed):,}')
             c.metric('No recorded transition in window',f'{len(cohort)-len(completed):,}')
-            d.metric('Median completed time',display_number(completed.response_hours.median(),' h'))
+            d.metric('Median time to first status',display_number(completed.response_hours.median(),' h'))
             st.caption(f'Completion rate: {display_number(100*len(completed)/len(cohort) if len(cohort) else float("nan"),"%")} • '
                        f'Median uses {len(completed):,} completed notes. First non-NMR includes Helpful and Not Helpful.')
             st.write(f'Excluded: {diagnostics["immature_notes"]:,} immature notes; '
@@ -182,22 +188,35 @@ def render():
             with st.expander('Response exclusions'): st.json(diagnostics)
             if cohort.empty: st.info('No eligible notes match. Widen dates, choose other classifications/types, or reduce the window.')
             if len(summary):
-                bars = summary.melt('classification',value_vars=['completed','no_recorded_transition'],var_name='outcome',value_name='notes')
+                bars = summary.melt('classification',value_vars=['helpful_first','not_helpful_first','no_recorded_transition'],var_name='outcome',value_name='notes')
+                bars['outcome'] = bars.outcome.map({'helpful_first':'First status: Helpful','not_helpful_first':'First status: Not Helpful','no_recorded_transition':'No transition in window'})
                 st.altair_chart(alt.Chart(bars).mark_bar().encode(x='classification:N',y=alt.Y('notes:Q',title='Notes'),color='outcome:N',tooltip=['classification','outcome','notes']),width='stretch')
-            st.dataframe(summary,hide_index=True,width='stretch')
-            st.subheader('First-day ratings and completed response time')
-            points = completed.sample(min(2000,len(completed)),random_state=576)
-            if completed.empty:
-                st.info('No completed events in this selection; no median or scatter can be calculated. Try another classification or use Reset Response.')
-            elif not completed.early_ratings.gt(0).any():
-                st.info('No ratings were observed during these completed notes’ first 24 hours in the supplied ratings file. The scatter plot is hidden because all first-day counts are zero. This does not establish that nobody rated the notes.')
-            elif len(points):
-                st.altair_chart(alt.Chart(points[['early_ratings','response_hours','classification']]).mark_circle(opacity=.6).encode(
-                    x=alt.X('early_ratings:Q',title='Observed ratings in first 24 hours',scale=alt.Scale(zero=True)),
-                    y=alt.Y('response_hours:Q',title='Hours to first non-NMR',scale=alt.Scale(domain=[0,window*24])),
-                    color='classification:N',tooltip=['classification','early_ratings',alt.Tooltip('response_hours:Q',format='.1f')]),width='stretch')
-                st.caption(f'Showing {len(points):,} of {len(completed):,} completed notes (fixed random seed if sampled). '
-                           'First-day ratings may arrive after the first transition. Association does not demonstrate causation.')
+            st.write(f'First recorded outcomes within the window: **{int(summary.helpful_first.sum()):,} Helpful** and **{int(summary.not_helpful_first.sum()):,} Not Helpful**. These are first outcomes, not current status or proof of display.')
+            st.subheader('Groups to review')
+            st.caption('Compare both group size and the share without a transition. First-day activity below refers only to notes without a transition within the selected window. Zero means no ratings observed in our supplied files.')
+            st.dataframe(summary.rename(columns={
+                'classification':'Classification','eligible':'Eligible notes','completed':'Reached first status',
+                'median_hours':'Median hours among completed','no_recorded_transition':'No transition',
+                'helpful_first':'Helpful first','not_helpful_first':'Not Helpful first',
+                'no_transition_percent':'No transition (%)',
+                'waiting_median_first_day_ratings':'Waiting notes: median first-day ratings',
+                'waiting_zero_first_day_ratings':'Waiting notes: zero first-day ratings',
+                'waiting_zero_first_day_percent':'Waiting notes: zero first-day ratings (%)'}),hide_index=True,width='stretch')
+            st.caption('These comparisons identify questions for review. They do not establish how much additional rating effort is needed, broad agreement among contributors, or readiness to display a note.')
+            with st.expander('Explore first-day ratings versus completed response time'):
+                st.write('Some ratings in the first 24 hours arrive after a note reaches its first status. This completed-note view cannot establish that more ratings caused a faster outcome, and it excludes notes without a transition in the window.')
+                points = completed.sample(min(2000,len(completed)),random_state=576)
+                if completed.empty:
+                    st.info('No completed events in this selection; no median or scatter can be calculated. Try another classification or use Reset Response.')
+                elif not completed.early_ratings.gt(0).any():
+                    st.info('No ratings were observed during these completed notes’ first 24 hours in the supplied ratings file. The scatter plot is hidden because all first-day counts are zero. This does not establish that nobody rated the notes.')
+                elif len(points):
+                    st.altair_chart(alt.Chart(points[['early_ratings','response_hours','classification']]).mark_circle(opacity=.6).encode(
+                        x=alt.X('early_ratings:Q',title='Observed ratings in first 24 hours',scale=alt.Scale(zero=True)),
+                        y=alt.Y('response_hours:Q',title='Hours to first non-NMR',scale=alt.Scale(domain=[0,window*24])),
+                        color='classification:N',tooltip=['classification','early_ratings',alt.Tooltip('response_hours:Q',format='.1f')]),width='stretch')
+                    st.caption(f'Showing {len(points):,} of {len(completed):,} completed notes (fixed random seed if sampled). '
+                               'First-day ratings may arrive after the first transition. Association does not demonstrate causation.')
             st.subheader('Helpfulness within the observation window')
             denominator = int(helpfulness.ratings.sum())
             st.caption(f'Valid rating denominator: {denominator:,}; missing/legacy levels excluded: {diagnostics["excluded_rating_levels"]:,}. '
@@ -210,10 +229,6 @@ def render():
                         classifications=';'.join(choice),note_type=note_type,units='hours; counts; percent')
             st.download_button('Export response',export_csv(summary,**meta),'windowed_response.csv','text/csv')
             st.download_button('Export helpfulness',export_csv(helpfulness,**meta),'windowed_helpfulness.csv','text/csv')
-            if len(summary):
-                group = summary.sort_values('no_recorded_transition',ascending=False).iloc[0]
-                st.info(f'Review candidate: {group.classification} has {group.no_recorded_transition:,} of {group.eligible:,} eligible notes '
-                        'without a recorded transition within the window. This does not establish that more ratings would resolve them faster.')
     with st.expander('Definitions and limits'):
         st.write('Coverage counts requests once when a new note appears at or after eligibility and at or before the window end. '
                  'Response includes notes with a full window and consistent matched status history. Missing histories are excluded, not labeled unresolved. '

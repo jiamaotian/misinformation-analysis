@@ -1,210 +1,113 @@
-# misinformation-analysis
-Misinformation on Social Media
+# Community Notes Explorer
 
-## Run the dashboard
+An interactive dashboard for Community Notes product managers reviewing observed note coverage,
+status progression, and rating activity in supplied X Community Notes data. Use it to identify
+periods and note classifications worth further investigation. It does not estimate the causal effect
+of additional writing/rating effort or establish broad agreement or readiness to display a note.
 
-### Share the full raw dataset
+## Run the app
 
-The current local snapshot contains 17 ZIP archives (about 12 GB). To inventory
-an existing folder without duplicating or extracting its contents, run:
-
-```bash
-python3 prepare_dashboard.py --raw-dir '/path/to/communitynotes/data'
-```
-
-This records filenames, archive sizes, SHA-256 checksums, and enclosed filenames
-in `raw_dataset_manifest.json`. It excludes the course PDFs. The local folder
-path is saved separately in Git-ignored `data/raw_location.json`. Indexing reads
-every archive to calculate checksums; it does not validate every data row.
-The original ZIPs stay where they are. This raw-data command needs only Python's
-standard library.
-
-**Team access still requires sharing the actual ZIPs.** A local path on one
-computer is not a shared download location. Upload all ZIPs to team-accessible
-storage, then share that location and this manifest. Each teammate can inventory
-their downloaded folder and compare checksums. The URL command below imports
-one ZIP at a time; it does not download this entire multi-archive snapshot.
-
-Keep the original ZIP in team-accessible storage and share a direct HTTPS download
-link. Do not paste its contents into Python or commit the large archive to Git.
-Teammates can download and extract the exact same ZIP with:
-
-```bash
-python prepare_dashboard.py --raw-url 'https://YOUR-STORAGE/YOUR-DATASET.zip'
-```
-
-Replace the example URL with your actual direct download link (an HTML preview or
-sign-in page will not work). Do not commit private links containing access tokens.
-If you already downloaded the ZIP, use:
-
-```bash
-python prepare_dashboard.py --raw-zip '/path/to/dataset.zip'
-```
-
-Both commands preserve the ZIP at `data/raw/source.zip`, extract all its files
-under `data/raw/files/`, and record a SHA-256 in `data/raw/manifest.json`.
-The whole `data/` directory is ignored by Git. Share the printed checksum with
-teammates; add `--sha256 CHECKSUM` to either command to verify their download.
-Existing `data/raw/` is never overwritten; move it aside to import another snapshot.
-Allow disk space for both the ZIP and its complete extracted contents.
-
-Importing a ZIP only installs raw data. It does not run the separate team cleaning
-workflows or convert arbitrary raw tables to dashboard Parquet. Running
-`python prepare_dashboard.py` without options retains the existing cleaned-input
-audit and Parquet build described below. The bundled Parquet files are compact
-dashboard inputs, not a copy of the full raw dataset.
-
-The Streamlit app provides independent coverage and response sections with 7/14/28-day windows,
-feed/date/classification/note-type filters, weekly chart selection, resets, first-day rating activity,
-windowed helpfulness, exclusion counts, and aggregate CSV exports. The app opens directly to this dashboard.
-
-Intended users are Community Notes product managers investigating observed coverage gaps and
-waiting-note patterns. These observations cannot establish the effect of adding writers or raters.
-
-From this folder, using Python 3.11 or newer:
+Use Python 3.12. From this folder:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements-dashboard.txt
+python -m pip install -r requirements.txt
 python -m streamlit run main.py
 ```
 
-The compact prepared tables are bundled, so running the app needs no raw downloads.
-To rebuild them, run `python prepare_dashboard.py`. Rebuilding requires `phase2-peyton/outputs/notes_clean.csv`,
-`phase2-peyton/outputs/note_requests_clean.csv`, and the two `*_clean.tsv.gz` files in
-`yoojin_phase 2/`, plus Yoojin's committed validation reports. These large source files are local and
-ignored by Git. Preparation scans the full cleaned inputs once and saves compact Parquet files
-under `outputs/dashboard/`; the app uses those cached tables rather than rescanning millions of ratings.
-Rerun preparation after replacing any source file. If preparation fails, do not treat prior outputs
-as an audit of the new inputs.
+Open http://localhost:8501. The app reads the prepared tables in `outputs/dashboard/`.
+**Do not run preparation just to launch the app.** Existing prepared files include additional ratings
+imports that the original preparation command alone does not reproduce.
 
-Open http://localhost:8501. Stop the server with Ctrl+C. On this laptop preparation is complete;
-restart with `.venv/bin/python -m streamlit run main.py`.
+## What users can do
 
-**Snapshot status:** on November 2, Peyton designated October 2, 2026 23:59:59.999 UTC as the
-shared provisional cutoff for all four datasets. `dashboard_policy.json` records this decision and
-is used during preparation. Original download dates and snapshot completeness remain unverified.
-Fixed-window metrics remain available in exploratory mode; exports mark the cutoff unverified.
-Historical manifests and saved Phase 2 results retain their original metadata. See `SNAPSHOT_STATUS.md`.
+- Coverage: select a feed, supported request eligibility dates, and a 7/14/28-day window.
+  Use **Focus week** to update the cards, table, and export while retaining the full overview chart.
+- Response: select classifications, supported note creation dates, and a window. Compare first
+  Helpful, first Not Helpful, and no recorded transition outcomes. The median measures hours to
+  either first status, among completed events only.
+- Review groups: compare counts and percentages without transitions, median first-day ratings
+  among those notes, and counts/percentages with no observed first-day ratings.
+- Ratings: compare helpfulness within the same observation window. An expandable scatter shows
+  first-day activity versus completed response time; it is exploratory, not evidence of causation.
+- Reset each section independently and download filtered aggregates with scope metadata.
 
-**Validation:** `yoojin_phase 2/evidence/dashboard_validation.json` records a complete cleaned-output
-scan, QC-count reconciliation, status-key uniqueness, matched rating-pair uniqueness, file hashes,
-and join counts. It does not revalidate original raw data or establish complete platform coverage.
-The new preparation workflow does not overwrite the historical `SUCCESS.json` or Phase 2 aggregates.
-The legacy Jessica runner still requires its original combined-cleaning completion record;
-the dashboard uses the separate preparation workflow above.
+Each record needs its full selected window before the cutoff. First-day activity always means
+24 hours. No eligible records yields N/A; an eligible cohort with no observed events can yield 0%.
+The sections have independent date filters. Only supported dates appear in their selectors; the
+endpoints of a supported range do not guarantee full dataset coverage between them.
 
-**Data scope:** 15,430 notes, 27,038,662 supplied ratings, and 3,343,818 status rows.
-4,792 notes have no matching status record; only 252 notes have observed ratings in the supplied shard.
-Missing status records are excluded from response metrics. No observed rating is not proof of zero
-platform activity. Scatter plots use a reproducible sample of at most 2,000 completed notes;
-KPI and aggregate calculations use the full selected eligible cohort.
+## Data scope and existing timestamp
 
-Tests: install `pytest`, then run `python -m pytest test_dashboard.py test_window_analysis.py`.
+Existing shared provisional cutoff: **October 2, 2026, 23:59:59.999 UTC**.
+It is recorded in `dashboard_policy.json` and the prepared validation report. Calculations and
+exports retain the provisional designation. This update does not confirm missing source metadata.
 
-Deployment: choose `main.py` as the entry point and use the root `requirements.txt`.
-The prepared `outputs/dashboard/` tables and validation report are included in this deployment package.
-Select the `main` branch, entry file `main.py`, and Python 3.12 in Streamlit Community Cloud. Live app link: not deployed. Demo video link: not recorded.
+Current local prepared data:
 
-## Peyton Tom — Module 6
+- 15,430 notes, all marked **collaborative and non-media**.
+- 499,888 request rows (feed eligibility and maturity exclusions apply).
+- 107,712 matched ratings across 5,370 notes, before selected-cohort/window filtering.
+- Status records match 10,638 notes; 4,792 have no matching status history.
 
-| Information | Details |
-|---|---|
-| Student | Peyton Tom |
-| Course | DSO 576 |
-| Assignment | Module 6 — Project Data Cleaning |
-| Project | Misinformation on Social Media — Community Notes |
-| Individual branch | `peyton-tom` |
-| Branch link | [Peyton's branch](https://github.com/jiamaotian/misinformation-analysis/tree/peyton-tom) |
-| Notebook | `peyton-tom.ipynb` |
-| Cleaning script | `clean_peyton.py` |
-| Submitted commit ID | Pending — the assignment files have not been committed yet |
+Coverage is **observed coverage in the supplied Notes subset**, not all notes on X. Absence from
+this subset is not proof a post received no Community Note. Unmatched or unusable status histories
+are excluded from response calculations, not labeled unresolved. Helpful and Not Helpful first
+statuses are reported separately; neither the combined completion rate nor rating helpfulness is a
+measure of contributor agreement. Notes without a recorded transition may have later events.
 
+The supplied rating overlap includes February 4–10 and additional dates from July 17 onward.
+Latest selectable note dates are September 25, September 18, and September 4 for 7/14/28 days,
+respectively, subject to matched status/rating coverage. Rating-file omissions can look like low
+activity. Scatter plots sample at most 2,000 completed notes with a fixed seed; other aggregates
+use the full selected cohort. First-day ratings can occur after the status transition.
 
-Start with `peyton-tom.ipynb`. It follows the class style: load in chunks, inspect every column, propose rules, flag concerns, review, and then prepare data with change reports. The same cleaning code is also in `clean_peyton.py`, organized into VS Code `# %%` sections. Choose the notebook for step-by-step explanation or the script for a terminal run; both produce the same output files.
+## Validation and tests
 
-### File organization
-
-| File or folder | Purpose |
-|---|---|
-| `phase1_data_exploration.ipynb` | Original team exploration; unchanged |
-| `peyton-tom.ipynb` | Individual explanation, cleaning, checks, and dashboard plan |
-| `clean_peyton.py` | Runnable version of the notebook's cleaning code |
-| `requirements-peyton.txt` | Dependencies for both workflows |
-| `outputs/peyton-inspection/` | Current inspection and optional prepared tables; ignored by Git |
-
-The homework requests both a cleaning `.py` and a notebook `.ipynb`. The class handout's `dashboard.py` is a separate app, to build after the plan and required note/status data are ready. It is not the cleaning script.
-
-### Data and run instructions
-
-Source: [Community Notes public data](https://communitynotes.x.com/guide/en/under-the-hood/download-data), local `~/Downloads/ratings-00007.tsv`. The revised default inspects **every row and every column**, with no one-week selection. The exact input hash is saved; the download date and snapshot cutoff still need confirmation.
-
-Use Python 3.11 or newer. From `misinformation-analysis`, run:
+`outputs/dashboard/validation.json` records original cleaned-file checks, source hashes, join gaps,
+and additional raw-ratings imports. Additional imports apply ID/time checks, remove identical rows,
+and exclude conflicting participant/note pairs. These checks do not certify snapshot completeness.
 
 ```bash
-python -m pip install -r requirements-peyton.txt
-python clean_peyton.py
+python -m pip install pytest
+python -m pytest test_dashboard.py test_window_analysis.py test_add_dashboard_ratings.py
 ```
 
-Or select the same Python environment and run `peyton-tom.ipynb` in order. Both workflows contain the same code. `PREPARE_DATA = True` after review: preserve all source values and rows, and add UTC dates and invalid-date flags. The full-file CSV is several GB. Keep settings synchronized between files.
+## Rebuild data (optional, requires local source files)
 
-Current outputs in ignored `outputs/peyton-inspection/`:
-
-- `column_rules_and_evidence.csv`: one proposed rule per column, missingness, whitespace, and observed examples.
-- `category_counts.csv`: observed category counts; any vocabulary limit is disclosed in the manifest.
-- `flag_counts.csv` and `flagged_sample.csv`: full-file flag counts and up to 50 review records. Flags do not trigger removal.
-- `inspection_manifest.json`: source hash, schema, row count, observed date range, and limitations.
-- With preparation enabled: `ratings_prepared.csv`, `prepared_sample.csv`, and `transformation_report.csv`.
-
-Preparation preserves all original columns, category labels, IDs, and rows. It adds `rating_date_utc` (a UTC representation of the original milliseconds) and `invalid_rating_date`; invalid values stay in the table. Each major step reports counts and original-value preservation. The inspection reports within-chunk flags; `verify_peyton.py duplicates` separately audits exact rows, note/rater pairs, note IDs, and rater IDs across the entire file. No rows are removed.
-
-The previous one-week outputs under `outputs/peyton-ratings/` remain historical results, not outputs of the revised workflow.
-
-The response-time dashboard plan remains in the notebook: completed-time median, unresolved count, and median waiting time together. Full Note Status History data and a verified cutoff are still needed. Ratings alone cannot calculate these metrics.
-
-See `CHECKLIST-peyton.md` for statuses and evidence. Five AI-assisted expectations are saved before preparation in `evidence/peyton/record_expectations.json`. `reproduce_peyton.py` runs the script and then every notebook cell in a fresh kernel, comparing output hashes. Document the source version and review the evidence before preparing your PDF. No files have been committed or pushed automatically.
-
-### Work in small steps, as in the handout
-
-Use focused prompts that name a file, task, limit, and check. For example: “Review the date-conversion cell in `peyton-tom.ipynb`. Preserve `raw` and all selected-week rows. Check that daily grouped counts equal the cleaned row count.” Review the inspection output before changing a field that may already be correct.
-
-The superseded synthetic status-history demo has been removed. The active workflow uses the real Ratings data.
-
-### Verified data-quality findings
-
-The full-file missingness audit examined **26,896,815 rows and all 35 source columns**. Only `suggestion` was empty: 26,880,490 missing entries plus 9 whitespace-only entries (99.9393%). The other 34 columns had zero missing or whitespace-only entries. Empty suggestion text is not a reason to discard a rating. Sentinel values such as `-1` are not counted as empty strings and need separate interpretation.
-
-The earlier cleaned table covered the declared February 9–15 week: **919,045 rating records on 14,829 distinct notes**. Full-file missingness evidence must not be described as a full-file duplicate or cleaning audit.
-
-The saved Phase 1 status schema contains creation time and first non-NMR time in the same table. That supports a basic time-to-first-non-NMR analysis once `data/noteStatusHistory-00000.tsv` and its observation cutoff are available. First non-NMR may be Helpful or Not Helpful; it does not establish time to first Helpful. The original notebook saves previews and references the TSV, but does not embed the full data.
-
-The revised 35-column inspection covers 26,896,815 rows. All reported category counts reconcile. ID format/sentinel interpretation and the snapshot cutoff remain unresolved. Final preparation and verification results are recorded in `CHECKLIST-peyton.md`.
-
-### Optional extended reproducibility check
-
-Use Python 3.11+ and the pinned dependencies in `requirements-peyton.txt`:
+Back up `outputs/dashboard/` first. `prepare_dashboard.py` replaces the prepared tables.
+It requires Peyton's cleaned notes/requests in `phase2-peyton/outputs/`, Yoojin's cleaned
+ratings/status files in `yoojin_phase 2/`, and the original cleaning reports under its `evidence/`.
+Then run the additional imports to reproduce the current ratings:
 
 ```bash
-python -m pip install -r requirements-peyton.txt
-python reproduce_peyton.py
+python prepare_dashboard.py
+python add_dashboard_ratings.py /path/to/ratings-00008.zip
+python add_dashboard_ratings.py /path/to/ratings-00006.zip
 ```
 
-The reproducibility command runs the script, starts a fresh notebook kernel, executes every cell (including duplicate and record checks), saves the executed notebook, and compares all inspection/preparation CSV and JSON hashes between runs. It can take tens of minutes and needs space for a multi-GB prepared CSV and temporary duplicate-audit data.
+The checked `ratings-00001.zip` added no matches and is unnecessary for the current rating totals.
+`ratings-00002.zip` was checked only and also had no matching IDs. Reusing a different snapshot
+with the same filename may produce different results; compare hashes in the validation report.
+Retain original archives locally; they are not needed by the running app. Each import keeps a
+backup of its preceding ratings table and report under `outputs/dashboard/before_rating_import/`.
 
-`verify_peyton.py expectations` is initial setup only: it refuses to overwrite existing expectations. Keep those expectations unchanged when checking actual output. `verify_peyton.py duplicates` and `verify_peyton.py verify` can also run separately. The five cases include a blank suggestion, a post-ID sentinel, whitespace-only text, nonempty contributor text, and a participant ID beginning with zero. These are AI-assisted checks, not a claim of manual student verification.
+## Deployment and submission
 
-The full raw/prepared files stay in ignored local folders. Small audit reports and record-check evidence are in `evidence/peyton/`; review these files when assembling the submission.
+Repository: https://github.com/jiamaotian/misinformation-analysis
 
-### Current verification status
+Select branch `main`, entry point `main.py`, and Python 3.12 on Streamlit Community Cloud.
+The deployment needs the four prepared files: `notes.parquet`, `ratings.parquet`, `requests.parquet`,
+and `validation.json` under `outputs/dashboard/`. This package includes the expanded ratings and current interface. After deployment, verify the
+hosted results against the bundled data.
 
-Both full-file preparation passes completed. The extended notebook verification was stopped during its repeat duplicate audit to limit runtime; a complete saved Run All and final all-output hash comparison are not claimed. See `CHECKLIST-peyton.md` for the final statuses. For just the five-record comparison, run `python verify_peyton.py records`; this avoids another full inspection or duplicate audit.
+Live app link: to be supplied by the team. Demo video link: to be supplied by the team.
+Before submitting, test the deployed app without login and with the laptop server stopped. Check
+filters, reset, exports, and an empty selection. Confirm the README counts match the deployed data.
+The demo should explain the user decision, units, interactions, difficult case, and one limitation.
+Public showcase preference: not yet recorded by the team.
 
-### Supported date selections
+Earlier individual cleaning/submission notes are preserved in `README_MODULE6_HISTORY.md`.
 
-Date selectors offer only dates represented in the supported cohort. Coverage dates depend on the
-feed and maturity window, using the shared provisional October 2 cutoff. Response and ratings are
-restricted to February 4–10, 2026 note-creation dates, where the supplied ratings overlap matched
-status history. All eligible notes in the selected period stay in response denominators, including
-notes without observed ratings. This period restriction is deliberate and limits generalization.
-Classification/type filters can still yield no records; explanatory empty states remain in place.
+Raw archive sharing/import options contributed by the team are documented in [RAW_DATA_IMPORT.md](RAW_DATA_IMPORT.md). These inventory/import commands do not clean or rebuild dashboard data.

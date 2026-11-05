@@ -1,5 +1,5 @@
 {
-  "scope": "Full cleaned-output scan; original source files not revalidated. Selected shards only.",
+  "scope": "Full cleaned-output scan; original source files not revalidated. Selected shards only. Additional raw ratings imports are independently filtered and reported under additional_ratings; original cleaned-output checks refer to the initial inputs. Additional raw ratings imports are independently filtered and reported under additional_ratings; original cleaned-output checks refer to the initial inputs. Additional raw ratings imports are independently filtered and reported under additional_ratings; original cleaned-output checks refer to the initial inputs.",
   "cutoff_utc": "2026-10-02T23:59:59.999Z",
   "cutoff_verified": false,
   "cutoff_evidence": "User designated October 2 as the shared provisional cutoff for Peyton and all other datasets on November 2, 2026. Original download dates and snapshot completeness remain unverified.",
@@ -117,9 +117,62 @@
   "matched_rating_repeated_pair_rows": 0,
   "notes_without_status": 4792,
   "notes_with_status": 10638,
-  "notes_with_observed_ratings": 252,
+  "notes_with_observed_ratings": 5370,
   "requests_with_matching_post": 4254,
   "notes_without_matching_request": 8932,
   "rating_pair_validation_scope": "Actual pair uniqueness checked for matched cohort; full-file repeated-key flags reconciled to prior report.",
-  "status": "PASS cleaned-output and integration checks; snapshot remains unverified"
+  "status": "PASS cleaned-output and integration checks; snapshot remains unverified",
+  "additional_ratings": [
+    {
+      "archive": "ratings-00001.zip",
+      "sha256": "0aac2dbebd255738ffed361c4453c264e68e8560b30ee279d8e43c482ccdba9f",
+      "rows_scanned": 28900985,
+      "usable_matched_rows": 0,
+      "invalid_matched_rows": 0,
+      "after_cutoff_matched_rows": 0,
+      "precreation_matched_rows": 0,
+      "duplicate_rows_removed": 0,
+      "conflicting_pair_rows_excluded": 0,
+      "ratings_before": 3499,
+      "ratings_after": 3499,
+      "notes_with_ratings_before": 252,
+      "notes_with_ratings_after": 252,
+      "cutoff_utc": "2026-10-02T23:59:59.999Z",
+      "snapshot_verified": false
+    },
+    {
+      "archive": "ratings-00008.zip",
+      "sha256": "010a58595fdb6057da53195deddb186dcffdf4e2ecc2a065d48bb9e613d51876",
+      "rows_scanned": 16221914,
+      "usable_matched_rows": 104210,
+      "invalid_matched_rows": 0,
+      "after_cutoff_matched_rows": 22026,
+      "precreation_matched_rows": 0,
+      "duplicate_rows_removed": 0,
+      "conflicting_pair_rows_excluded": 0,
+      "ratings_before": 3499,
+      "ratings_after": 107709,
+      "notes_with_ratings_before": 252,
+      "notes_with_ratings_after": 5370,
+      "cutoff_utc": "2026-10-02T23:59:59.999Z",
+      "snapshot_verified": false
+    },
+    {
+      "archive": "ratings-00006.zip",
+      "sha256": "4b2c6d2e107d4363f94077a8495256a58b4a2951bffa091ac43d1bede82588e5",
+      "rows_scanned": 27045100,
+      "usable_matched_rows": 3361,
+      "invalid_matched_rows": 0,
+      "after_cutoff_matched_rows": 0,
+      "precreation_matched_rows": 0,
+      "duplicate_rows_removed": 3358,
+      "conflicting_pair_rows_excluded": 0,
+      "ratings_before": 107709,
+      "ratings_after": 107712,
+      "notes_with_ratings_before": 5370,
+      "notes_with_ratings_after": 5370,
+      "cutoff_utc": "2026-10-02T23:59:59.999Z",
+      "snapshot_verified": false
+    }
+  ]
 }

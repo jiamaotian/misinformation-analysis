@@ -80,11 +80,10 @@ def test_fixed_window_app_controls():
         pytest.skip('Local prepared dataset unavailable')
     app=AppTest.from_file(str(Path(__file__).with_name('dashboard.py'))).run(timeout=30)
     assert not app.exception
-    app.checkbox[0].check().run(timeout=60)
+    assert not app.checkbox
     assert not app.exception
     assert not app.error
-    from datetime import date
-    assert app.select_slider[1].value == (date(2026,2,4),date(2026,2,10))
+    assert app.select_slider[1].value[0] <= app.select_slider[1].value[1]
     before=[m.value for m in app.metric[:3]]
     app.multiselect[0].set_value([]).run(timeout=30)
     assert not app.exception and not app.error
@@ -94,6 +93,14 @@ def test_fixed_window_app_controls():
     reset.click().run(timeout=30)
     assert not app.exception and not app.error
     assert len(app.multiselect[0].value)>0
+    response_before=[m.value for m in app.metric[3:]]
+    focus=next(x for x in app.selectbox if x.label=='Focus week')
+    focus.select(focus.options[1]).run(timeout=30)
+    assert [m.value for m in app.metric[3:]] == response_before
+    assert app.metric[0].value != before[0]
+    next(b for b in app.button if b.label=='Reset Coverage').click().run(timeout=30)
+    assert [m.value for m in app.metric[:3]] == before
+    assert not any(x.label=='Note type' for x in app.selectbox)
     app.selectbox(key='cov_window').select(14).run(timeout=60)
     assert not app.exception and not app.error
     app.selectbox(key='resp_window').select(28).run(timeout=30)
@@ -130,3 +137,22 @@ def test_real_feed_reconciliation(feed):
     assert result['weekly'].eligible_requests.sum()==result['summary']['eligible_requests']
     assert result['weekly'].covered_requests.sum()==result['summary']['covered_requests']
     assert result['requests'].tweetId.is_unique
+
+
+def test_review_metrics_distinguish_outcomes_and_waiting_activity():
+    notes,ratings=fixture()
+    notes.loc[1,'firstNonNMRStatus']='CURRENTLY_RATED_NOT_HELPFUL'
+    notes.loc[1,'currentStatus']='CURRENTLY_RATED_NOT_HELPFUL'
+    cohort,summary,_,_=run(notes,ratings)
+    row=summary.iloc[0]
+    assert row.helpful_first==2
+    assert row.not_helpful_first==1
+    assert row.no_recorded_transition==2
+    assert row.no_transition_percent==40
+    assert row.waiting_median_first_day_ratings==0
+    assert row.waiting_zero_first_day_ratings==2
+    assert row.waiting_zero_first_day_percent==100
+    notes=notes.iloc[:3]
+    _,summary,_,_=run(notes,ratings)
+    assert pd.isna(summary.iloc[0].waiting_median_first_day_ratings)
+    assert pd.isna(summary.iloc[0].waiting_zero_first_day_percent)

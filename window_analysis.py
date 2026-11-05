@@ -74,4 +74,13 @@ def response_analysis(notes, ratings, *, cutoff, window, start, end, classificat
     summary = cohort.groupby('classification').agg(eligible=('noteId','size'),completed=('completed','sum'),
                                                   median_hours=('response_hours','median')).reset_index()
     summary['no_recorded_transition'] = summary.eligible-summary.completed
+    summary['helpful_first'] = summary.classification.map(
+        cohort.loc[cohort.completed & cohort.firstNonNMRStatus.eq('CURRENTLY_RATED_HELPFUL')].groupby('classification').size()).fillna(0).astype(int)
+    summary['not_helpful_first'] = summary.completed-summary.helpful_first
+    summary['no_transition_percent'] = 100*summary.no_recorded_transition/summary.eligible
+    waiting = cohort.loc[~cohort.completed]
+    summary['waiting_median_first_day_ratings'] = summary.classification.map(waiting.groupby('classification').early_ratings.median())
+    summary['waiting_zero_first_day_ratings'] = summary.classification.map(
+        waiting.loc[waiting.early_ratings.eq(0)].groupby('classification').size()).fillna(0).astype(int)
+    summary['waiting_zero_first_day_percent'] = (100*summary.waiting_zero_first_day_ratings / summary.no_recorded_transition.where(summary.no_recorded_transition.gt(0)))
     return cohort, summary, helpfulness, diagnostics
