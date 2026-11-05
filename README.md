@@ -108,6 +108,5 @@ filters, reset, exports, and an empty selection. Confirm the README counts match
 The demo should explain the user decision, units, interactions, difficult case, and one limitation.
 Public showcase preference: not yet recorded by the team.
 
-Earlier individual cleaning/submission notes are preserved in `README_MODULE6_HISTORY.md`.
 
 Raw archive sharing/import options contributed by the team are documented in [RAW_DATA_IMPORT.md](RAW_DATA_IMPORT.md). These inventory/import commands do not clean or rebuild dashboard data.
