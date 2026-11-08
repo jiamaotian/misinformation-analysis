@@ -106,7 +106,7 @@ Live app link: to be supplied by the team. Demo video link: to be supplied by th
 Before submitting, test the deployed app without login and with the laptop server stopped. Check
 filters, reset, exports, and an empty selection. Confirm the README counts match the deployed data.
 The demo should explain the user decision, units, interactions, difficult case, and one limitation.
-Public showcase preference: not yet recorded by the team.
+Public showcase preference: **Decide later.**
 
 
 Raw archive sharing/import options contributed by the team are documented in [RAW_DATA_IMPORT.md](RAW_DATA_IMPORT.md). These inventory/import commands do not clean or rebuild dashboard data.
