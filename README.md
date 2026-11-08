@@ -102,7 +102,9 @@ The deployment needs the four prepared files: `notes.parquet`, `ratings.parquet`
 and `validation.json` under `outputs/dashboard/`. This package includes the expanded ratings and current interface. After deployment, verify the
 hosted results against the bundled data.
 
-Live app link: to be supplied by the team. Demo video link: to be supplied by the team.
+Live app: [Community Notes Explorer](https://misinformation-analysis-6f5zzljdq2yngdkuzbc7hv.streamlit.app/)
+
+ Demo video link: to be supplied by the team.
 Before submitting, test the deployed app without login and with the laptop server stopped. Check
 filters, reset, exports, and an empty selection. Confirm the README counts match the deployed data.
 The demo should explain the user decision, units, interactions, difficult case, and one limitation.
