@@ -1,5 +1,9 @@
 # Community Notes Explorer
 
+- **Live app:** [Community Notes Explorer](https://misinformation-analysis-6f5zzljdq2yngdkuzbc7hv.streamlit.app/)
+- **Demo video:** [View the group walkthrough](https://drive.google.com/file/d/1VJbC9qQY6Ov4QrYARLvkxoithlB2j9eB/view?usp=sharing)
+- **GitHub repository:** [misinformation-analysis](https://github.com/jiamaotian/misinformation-analysis)
+
 An interactive dashboard for Community Notes product managers reviewing observed note coverage,
 status progression, and rating activity in supplied X Community Notes data. Use it to identify
 periods and note classifications worth further investigation. It does not estimate the causal effect
@@ -170,18 +174,12 @@ is not a versioned archive of every import.
 
 ## Deployment and submission
 
-Repository: https://github.com/jiamaotian/misinformation-analysis
-
 Select branch `main`, entry point `main.py`, and Python 3.12 on Streamlit Community Cloud.
 The deployment needs the four prepared files: `notes.parquet`, `ratings.parquet`, `requests.parquet`,
 and `validation.json` under `outputs/dashboard/`. These prepared files and the reviewed windowed
 app code match GitHub `main` at commit `acdb32c`. Confirm the deployed revision and compare its
 results with the repository package before submission; a repository comparison alone does not
 verify the live deployment or anonymous access.
-
-Live app: [Community Notes Explorer](https://misinformation-analysis-6f5zzljdq2yngdkuzbc7hv.streamlit.app/)
-
-Demo video: [View the group walkthrough](https://drive.google.com/file/d/1VJbC9qQY6Ov4QrYARLvkxoithlB2j9eB/view?usp=sharing)
 
 Public showcase preference: **Decide later.**
 
