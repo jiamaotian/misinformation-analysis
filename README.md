@@ -104,7 +104,7 @@ hosted results against the bundled data.
 
 Live app: [Community Notes Explorer](https://misinformation-analysis-6f5zzljdq2yngdkuzbc7hv.streamlit.app/)
 
- Demo video link: to be supplied by the team.
+ Demo video: [View the group walkthrough](https://drive.google.com/file/d/1VJbC9qQY6Ov4QrYARLvkxoithlB2j9eB/view?usp=sharing)
 Before submitting, test the deployed app without login and with the laptop server stopped. Check
 filters, reset, exports, and an empty selection. Confirm the README counts match the deployed data.
 The demo should explain the user decision, units, interactions, difficult case, and one limitation.
