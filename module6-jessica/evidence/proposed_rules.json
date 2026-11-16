@@ -1,0 +1,32 @@
+[
+  [
+    "R1",
+    "Read all original TSV columns as strings; preserve IDs and leading zeros. Trim outer whitespace only in IDs and timestamp fields. Preserve prose and classification labels.",
+    "Avoid ID precision loss and unintended changes to text."
+  ],
+  [
+    "R2",
+    "Remove only fully identical source rows across Notes files. Exclude all remaining records with conflicting repeated noteId; never select an arbitrary winner.",
+    "Repeated tweetId across different notes is a valid one-to-many relationship."
+  ],
+  [
+    "R3",
+    "Interpret -1 in eligibility fields as not eligible. Keep missing optional fields. Invalid/missing IDs and invalid timestamps cannot enter the analysis cohort.",
+    "Missing eligibility does not mean eligible; missing prose does not invalidate a key."
+  ],
+  [
+    "R4",
+    "Use noteRequestFeedEligibleAtMillis only. Include unique eligible posts on or before the fixed UTC cutoff. A note counts only when eligibility <= creation <= cutoff.",
+    "Match the Phase 1 coverage definition; notes before eligibility do not count."
+  ],
+  [
+    "R5",
+    "Aggregate qualifying notes to one row per tweetId before joining. Keep every eligible request, including unmatched ones.",
+    "Prevent multiple notes from multiplying the coverage denominator."
+  ],
+  [
+    "R6",
+    "Unmatched means no qualifying note observed in supplied files, not proof of no note on X. Preserve suspicious values in raw sources and report exclusions.",
+    "File completeness and snapshot alignment are not established by a successful join."
+  ]
+]
