@@ -1,0 +1,32 @@
+[
+  {
+    "file": "notes/notes-00000.tsv",
+    "bytes": 1526702085,
+    "sha256": "b2be0fce25538ddca4c1e22de7dbfe409abcafc70b0e97806dc01595b0868d00"
+  },
+  {
+    "file": "notes/notes-00001.tsv",
+    "bytes": 11277337,
+    "sha256": "54e767af4adf32390a2e2cb38f11ba61d6d3bd76df7fd36131fa673c34d5a62a"
+  },
+  {
+    "file": "notes/notes-00002.tsv",
+    "bytes": 7168002,
+    "sha256": "7d2caee481ed6777a872c8a73fe3bdd6f5de579d302dfbbbf2f05a32a98baf41"
+  },
+  {
+    "file": "notes/notes-00003.tsv",
+    "bytes": 7334839,
+    "sha256": "7634761eec4059e5dac9d28e40e64487b218f738f63660332d608c616e1b043c"
+  },
+  {
+    "file": "notes/notes-00004.tsv",
+    "bytes": 7163267,
+    "sha256": "e0ea3ca82861b2143d93a2b44119cd4c8d9398a0e68f68c451b33747799e9e42"
+  },
+  {
+    "file": "note_requests/batSignals-00000.tsv",
+    "bytes": 109786326,
+    "sha256": "f44ac130a0c63b2bf82b4fea623f4121cc55c80cb38984f34e4f2291423a3e8b"
+  }
+]
